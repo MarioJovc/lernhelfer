@@ -135,9 +135,9 @@ lernhelfer/
 | Beispielklausur prüfen | `python3 skills/klausurtrainer/scripts/validate_exam.py beispiele/klausurtrainer/klausur.json` |
 | Beispielklausur rendern | `python3 skills/klausurtrainer/scripts/render_exam.py beispiele/klausurtrainer/klausur.json --out arbeit` |
 | Plugin prüfen | `claude plugin validate .` |
-| Neue Version veröffentlichen | `git tag v1.1.0 && git push origin v1.1.0` |
+| Neue Version veröffentlichen | auf GitHub unter **Releases → Draft a new release** ein Release mit Tag `v…` anlegen |
 
-Bei jedem Push baut der Workflow „Prüfung“ beide Beispiele neu und prüft sie. Ein Tag `v…` erzeugt ein Release mit je einer ZIP-Datei pro Skill.
+Bei jedem Push baut der Workflow „Prüfung“ beide Beispiele neu und prüft sie. Wird ein Release veröffentlicht, hängt der Workflow „Release“ je Skill eine ZIP-Datei an.
 
 ## Mitwirken
 
