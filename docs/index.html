@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2F2F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Zwei Skills für Claude: Der Klausurtrainer erstellt Probeklausuren mit Musterlösung und Bewertungsschema, die Foliennotizen erklären einen Foliensatz Folie für Folie. Beide arbeiten nur mit dem Material, das du hochlädst.">
+<title>Lernhelfer – by Mario Jovanovic</title>
+<link rel="icon" href="assets/zeichen-klein.svg" type="image/svg+xml">
+<link rel="preload" href="assets/tuda/fonts/Archivo-Variable-Latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/tuda/tuda-tokens.css">
+<link rel="stylesheet" href="assets/tuda/bundle.css">
+<script src="assets/tuda/bundle.js" defer></script>
+<style>
+body{background:var(--surface-page);color:var(--text-primary);margin:0}
+.seite-top .tuda-topbar{padding-left:var(--space-6)}
+.seite-top .tuda-topbar__app{border-left:0;padding-left:0}
+.seite-lockup{display:inline-flex;align-items:center;gap:10px;color:var(--text-secondary)}
+.seite-lockup .tuda-sign{width:32px;height:32px}
+.seite-lockup b{display:block;font-family:var(--font-display);font-weight:var(--font-weight-heavy);font-size:15px;
+  line-height:19px;letter-spacing:-0.02em;color:var(--text-primary)}
+.seite-main{max-width:960px;margin-inline:auto;padding:var(--space-12) var(--grid-margin-lg) var(--space-16)}
+.seite-main > * + *{margin-top:var(--space-12)}
+.seite-text{color:var(--text-secondary);font-size:var(--font-size-base);line-height:24px}
+.seite-text + .seite-text{margin-top:var(--space-3)}
+.seite-code{margin:0;padding:var(--space-5);border-radius:var(--radius-lg);background:var(--surface);
+  font-family:var(--font-mono);font-size:var(--font-size-sm);line-height:20px;overflow-x:auto;white-space:pre}
+.seite-bild{margin:0}
+.seite-bild img{display:block;width:100%;border-radius:var(--radius-lg);background:var(--surface)}
+.seite-bild figcaption{margin-top:var(--space-2);color:var(--text-secondary);font-size:var(--font-size-sm)}
+.seite-fuss{max-width:960px;margin-inline:auto;padding:var(--space-8) var(--grid-margin-lg) var(--space-12);
+  display:flex;flex-wrap:wrap;gap:var(--space-4) var(--space-8);align-items:center;justify-content:space-between;
+  color:var(--text-secondary);font-size:var(--font-size-sm);line-height:18px}
+@media (max-width:640px){.seite-main,.seite-fuss{padding-inline:var(--grid-margin-sm)}
+  .seite-top .tuda-topbar{padding-left:var(--space-4)}
+  .seite-main{padding-top:var(--space-8)}}
+</style>
+</head>
+<body>
+<a class="tuda-skip-link" href="#main">Zum Inhalt springen</a>
+<div class="seite-top">
+<div class="tuda-brandbar" aria-hidden="true"></div>
+<header class="tuda-topbar">
+<a class="tuda-topbar__app tuda-topbar__app--signed" href="./"><svg class="tuda-sign" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect class="tuda-sign__tile" width="48" height="48" rx="10"/><path class="tuda-sign__mark" d="M7 38V26A3 3 0 0 1 13 26V38H12V26A2 2 0 0 0 8 26V38ZM9 38V26A1 1 0 0 1 11 26V38ZM14 38V19A3 3 0 0 1 20 19V38H19V19A2 2 0 0 0 15 19V38ZM16 38V19A1 1 0 0 1 18 19V38ZM21 38V12A3 3 0 0 1 27 12V38H26V12A2 2 0 0 0 22 12V38ZM23 38V12A1 1 0 0 1 25 12V38ZM28 38V19A3 3 0 0 1 34 19V38H33V19A2 2 0 0 0 29 19V38ZM30 38V19A1 1 0 0 1 32 19V38ZM35 38V26A3 3 0 0 1 41 26V38H40V26A2 2 0 0 0 36 26V38ZM37 38V26A1 1 0 0 1 39 26V38Z"/><path class="tuda-sign__small" d="M10.5 24H13.5V42H10.5ZM16.5 15H19.5V42H16.5ZM22.5 6H25.5V42H22.5ZM28.5 15H31.5V42H28.5ZM34.5 24H37.5V42H34.5Z"/></svg><span class="tuda-topbar__app-text"><span class="tuda-topbar__app-name">Lernhelfer</span><span class="tuda-topbar__app-meta">by Mario Jovanovic</span></span></a>
+<div class="tuda-topbar__actions"><a class="tuda-btn tuda-btn--ghost tuda-btn--neutral" href="https://github.com/MarioJovc/lernhelfer">GitHub</a></div>
+</header>
+</div>
+<main class="seite-main" id="main" tabindex="-1">
+<header class="tuda-page-header"><div class="tuda-page-header__text"><p class="tuda-kicker">Claude-Skills fürs Studium</p><h1 class="tuda-page-header__title">Lernhelfer</h1><p class="tuda-page-header__lead">Zwei Skills für Claude: Der Klausurtrainer erstellt Probeklausuren mit Musterlösung und Bewertungsschema, die Foliennotizen erklären einen Foliensatz Folie für Folie. Beide arbeiten nur mit dem Material, das du hochlädst.</p></div><a class="tuda-btn tuda-btn--ink tuda-btn--lg" href="https://github.com/MarioJovc/lernhelfer/releases/latest">Skills herunterladen</a></header>
+<dl class="tuda-facts" aria-label="Überblick"><div class="tuda-facts__item"><dt class="tuda-facts__label">Skills</dt><dd class="tuda-facts__value">2</dd><dd class="tuda-facts__note">Klausurtrainer, Foliennotizen</dd></div><div class="tuda-facts__item"><dt class="tuda-facts__label">Läuft in</dt><dd class="tuda-facts__value">Claude</dd><dd class="tuda-facts__note">claude.ai, Desktop-App, Claude Code</dd></div><div class="tuda-facts__item"><dt class="tuda-facts__label">Ergebnis</dt><dd class="tuda-facts__value">PDF</dd><dd class="tuda-facts__note">mit KI-Hinweis auf jeder Seite</dd></div><div class="tuda-facts__item"><dt class="tuda-facts__label">Lizenz</dt><dd class="tuda-facts__value">MIT</dd></div></dl>
+<section class="tuda-section seite-abschnitt" aria-labelledby="ab-1"><div class="tuda-section__head"><div class="tuda-section__heading"><span class="tuda-numeral tuda-section__index" aria-hidden="true">01</span><h2 class="tuda-section__title" id="ab-1">Was die Skills können</h2></div></div><ul class="tuda-list tuda-list--card tuda-list--divided"><li class="tuda-list__item"><span class="tuda-list__lead tuda-list__lead--brand"><svg data-icon="clipboard-check"></svg></span><span class="tuda-list__content"><span class="tuda-list__title">Klausurtrainer</span><span class="tuda-list__meta">Aufgabenblatt und Musterlösung mit Bewertungsschema als zwei PDFs, jede Aufgabe mit Quellangabe aus deinem Material</span></span></li><li class="tuda-list__item"><span class="tuda-list__lead tuda-list__lead--brand"><svg data-icon="book"></svg></span><span class="tuda-list__content"><span class="tuda-list__title">Foliennotizen</span><span class="tuda-list__meta">Jede Folie unverändert oben, die Erklärung darunter, Kernfolien Schritt für Schritt markiert, am Ende eine Zusammenfassung</span></span></li><li class="tuda-list__item"><span class="tuda-list__lead tuda-list__lead--brand"><svg data-icon="check"></svg></span><span class="tuda-list__content"><span class="tuda-list__title">Geprüfte Ergebnisse</span><span class="tuda-list__meta">Skripte rechnen Punktsummen nach und vergleichen jede eingebettete Folie pixelgenau mit dem Original</span></span></li></ul></section><section class="tuda-section seite-abschnitt" aria-labelledby="ab-2"><div class="tuda-section__head"><div class="tuda-section__heading"><span class="tuda-numeral tuda-section__index" aria-hidden="true">02</span><h2 class="tuda-section__title" id="ab-2">Klausurtrainer</h2></div></div><p class="tuda-measure seite-text">Aus Folien, Übungen und auf Wunsch einer Altklausur entsteht eine Probeklausur. Claude zeigt dir zuerst ein Gerüst mit Themen und Punkten; erst nach deiner Freigabe entstehen Aufgabenblatt und Musterlösung.</p><figure class="seite-bild"><img src="assets/beispiel-klausurtrainer.png" alt="Deckblatt einer Probeklausur und eine Seite der Musterlösung mit blau markierten, punktegebenden Antworten"><figcaption>Beispiel zum erfundenen Modul „Einführung in die Wirtschaftsinformatik“</figcaption></figure></section><section class="tuda-section seite-abschnitt" aria-labelledby="ab-3"><div class="tuda-section__head"><div class="tuda-section__heading"><span class="tuda-numeral tuda-section__index" aria-hidden="true">03</span><h2 class="tuda-section__title" id="ab-3">Foliennotizen</h2></div></div><p class="tuda-measure seite-text">Für Vorlesungen, die du verpasst hast oder nacharbeiten willst: Unter jeder Folie steht, was die Dozentin dazu erklärt hätte – mit Legende zu jeder Formel und gelben Markierungen an den wichtigen Stellen.</p><figure class="seite-bild"><img src="assets/beispiel-foliennotizen.png" alt="Zwei Seiten eines kommentierten Foliensatzes: oben die Folie, darunter die Erläuterung, rechts mit gelb umrahmtem Diagramm"><figcaption>Demo-Foliensatz „Break-even-Analyse“</figcaption></figure></section><section class="tuda-section seite-abschnitt" aria-labelledby="ab-4"><div class="tuda-section__head"><div class="tuda-section__heading"><span class="tuda-numeral tuda-section__index" aria-hidden="true">04</span><h2 class="tuda-section__title" id="ab-4">Installation</h2></div></div><p class="tuda-measure seite-text">In claude.ai oder der Desktop-App: die ZIP-Datei eines Skills herunterladen und unter claude.ai/customize/skills hochladen. Dafür muss die Code-Ausführung eingeschaltet sein.</p><p class="tuda-measure seite-text">In Claude Code als Plugin:</p><pre class="seite-code"><code>/plugin marketplace add MarioJovc/lernhelfer
+/plugin install lernhelfer@lernhelfer</code></pre></section><section class="tuda-section seite-abschnitt" aria-labelledby="ab-5"><div class="tuda-section__head"><div class="tuda-section__heading"><span class="tuda-numeral tuda-section__index" aria-hidden="true">05</span><h2 class="tuda-section__title" id="ab-5">Gut zu wissen</h2></div></div><ul class="tuda-list tuda-list--card tuda-list--divided"><li class="tuda-list__item"><span class="tuda-list__lead tuda-list__lead--brand"><svg data-icon="search"></svg></span><span class="tuda-list__content"><span class="tuda-list__title">Nur dein Material</span><span class="tuda-list__meta">Der Klausurtrainer belegt jede Aufgabe mit einer Stelle im Material; ohne Beleg meldet er eine Lücke statt zu raten</span></span></li><li class="tuda-list__item"><span class="tuda-list__lead tuda-list__lead--brand"><svg data-icon="info"></svg></span><span class="tuda-list__content"><span class="tuda-list__title">KI-Hinweis</span><span class="tuda-list__meta">Jede Seite sagt, dass der Inhalt KI-generiert ist und nicht vom Lehrstuhl stammt</span></span></li><li class="tuda-list__item"><span class="tuda-list__lead tuda-list__lead--brand"><svg data-icon="lock"></svg></span><span class="tuda-list__content"><span class="tuda-list__title">Urheberrecht</span><span class="tuda-list__meta">Vorlesungsmaterial gehört den Lehrenden – nutze die Ergebnisse für dich und teile sie nur, wo das erlaubt ist</span></span></li></ul></section>
+</main>
+<footer class="seite-fuss">
+<span class="seite-lockup"><svg class="tuda-sign" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><rect class="tuda-sign__tile" width="48" height="48" rx="10"/><path class="tuda-sign__mark" d="M7 38V26A3 3 0 0 1 13 26V38H12V26A2 2 0 0 0 8 26V38ZM9 38V26A1 1 0 0 1 11 26V38ZM14 38V19A3 3 0 0 1 20 19V38H19V19A2 2 0 0 0 15 19V38ZM16 38V19A1 1 0 0 1 18 19V38ZM21 38V12A3 3 0 0 1 27 12V38H26V12A2 2 0 0 0 22 12V38ZM23 38V12A1 1 0 0 1 25 12V38ZM28 38V19A3 3 0 0 1 34 19V38H33V19A2 2 0 0 0 29 19V38ZM30 38V19A1 1 0 0 1 32 19V38ZM35 38V26A3 3 0 0 1 41 26V38H40V26A2 2 0 0 0 36 26V38ZM37 38V26A1 1 0 0 1 39 26V38Z"/><path class="tuda-sign__small" d="M10.5 24H13.5V42H10.5ZM16.5 15H19.5V42H16.5ZM22.5 6H25.5V42H22.5ZM28.5 15H31.5V42H28.5ZM34.5 24H37.5V42H34.5Z"/></svg><span><b>Lernhelfer</b>by Mario Jovanovic</span></span>
+<span>Inoffiziell, kein Angebot der TU Darmstadt · <a class="tuda-link" href="https://github.com/MarioJovc/lernhelfer">Quellcode auf GitHub</a></span>
+</footer>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.TUDa){TUDa.init(document.body);}});</script>
+</body>
+</html>

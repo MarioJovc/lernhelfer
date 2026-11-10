@@ -1,0 +1,21 @@
+name: Idee vorschlagen
+description: Eine neue Funktion oder Verbesserung für einen der Skills
+labels: ["Verbesserung"]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill
+      options:
+        - Klausurtrainer
+        - Foliennotizen
+        - Beide oder ein neuer Skill
+    validations:
+      required: true
+  - type: textarea
+    id: idee
+    attributes:
+      label: Was wünschst du dir?
+      description: Beschreib kurz die Situation im Studium, in der dir das helfen würde.
+    validations:
+      required: true

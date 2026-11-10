@@ -1,0 +1,24 @@
+{
+  "name": "lernhelfer",
+  "description": "Claude-Skills fürs Studium: Probeklausuren mit Musterlösung und kommentierte Foliensätze aus deinem Vorlesungsmaterial",
+  "owner": {
+    "name": "Mario Jovanovic",
+    "url": "https://github.com/MarioJovc"
+  },
+  "plugins": [
+    {
+      "name": "lernhelfer",
+      "source": ".",
+      "description": "Klausurtrainer und Foliennotizen: Probeklausuren mit Musterlösung und kommentierte Foliensätze als PDF",
+      "version": "1.0.0",
+      "author": {
+        "name": "Mario Jovanovic",
+        "url": "https://github.com/MarioJovc"
+      },
+      "homepage": "https://mariojovc.github.io/lernhelfer/",
+      "repository": "https://github.com/MarioJovc/lernhelfer",
+      "license": "MIT",
+      "keywords": ["studium", "lernen", "probeklausur", "vorlesungsfolien", "pdf"]
+    }
+  ]
+}

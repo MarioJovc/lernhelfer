@@ -1,0 +1,15 @@
+# Python-Pakete für die Skripte der Skills (in claude.ai sind sie meist schon vorhanden)
+
+# Klausurtrainer
+reportlab
+fonttools
+pdfplumber        # nur analyse_altklausur.py
+pypdfium2         # nur analyse_altklausur.py
+
+# Foliennotizen
+pymupdf
+pyphen
+matplotlib
+numpy
+pillow
+python-pptx       # nur für Sprechernotizen aus PowerPoint-Dateien

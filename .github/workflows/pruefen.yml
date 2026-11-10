@@ -1,0 +1,47 @@
+name: Prüfung
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  klausurtrainer:
+    name: Klausurtrainer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install reportlab fonttools
+      - name: Beispielklausur prüfen
+        run: |
+          python3 skills/klausurtrainer/scripts/validate_exam.py beispiele/klausurtrainer/klausur.json
+          python3 skills/klausurtrainer/scripts/check_mc.py beispiele/klausurtrainer/klausur.json \
+            --positionen skills/klausurtrainer/assets/beispiel_positionen.json
+      - name: Beispielklausur rendern
+        run: python3 skills/klausurtrainer/scripts/render_exam.py beispiele/klausurtrainer/klausur.json --out arbeit
+  foliennotizen:
+    name: Foliennotizen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install pymupdf pyphen reportlab matplotlib numpy pillow fonttools
+      - name: Demo-Foliensatz analysieren, bauen und prüfen
+        run: |
+          S=skills/foliennotizen
+          B=beispiele/foliennotizen
+          python3 $S/scripts/folien_analyse.py $B/Break-even-Analyse.pdf --out arbeit
+          python3 - $S/SKILL.md arbeit/bauen.py <<'PY'
+          import re, sys
+          text = open(sys.argv[1], encoding="utf-8").read()
+          open(sys.argv[2], "w", encoding="utf-8").write(re.search(r"```python\n(# bauen\.py.*?)```", text, re.S)[1])
+          PY
+          python3 arbeit/bauen.py --skill $S --folien arbeit/folien.pdf --kommentar $B/kommentar --out arbeit/kommentiert.pdf
+          python3 $S/scripts/kommentar_pruefen.py --folien arbeit/folien.pdf --pdf arbeit/kommentiert.pdf \
+            --original $B/Break-even-Analyse.pdf --bericht arbeit/pruefbericht.md

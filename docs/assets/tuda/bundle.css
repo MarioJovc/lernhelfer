@@ -1,0 +1,1356 @@
+/* =====================================================================
+   TUDa UI 0.4 — bundle.css
+   Tinte & Glas: die Klarheit von iOS und One UI – neutrale Grundfläche, weiße Karten ohne Rand,
+   straffe konzentrische Ecken, Kapseln, Glas-Leisten und getönte Glas-Kacheln für Objekte, die man
+   bewegt – mit der Stimme von TUDa UI: Archivo-Titel, Tinte, TU-Blau für Interaktion, eine leise
+   Markierung statt Textmarker, Kennzahlenzeile statt Widget, Kontur-Ziffern.
+   Lädt nach den Tokens und nutzt ausschließlich deren Custom Properties. Präfix: .tuda-
+   ===================================================================== */
+
+/* ---------------------------------------------------------------- Base */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--topbar-height) + var(--space-4)); }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: 24px;
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--tracking-text);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+:lang(de) { hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 10 4 4; }
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: var(--font-display); font-weight: var(--font-weight-bold); letter-spacing: var(--tracking-snug); text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+img, svg, video { max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; }
+::selection { background: var(--primary-subtle); color: var(--text-primary); }
+
+/* Fokus: ein System für alles – solide 2-px-Outline mit 2 px Abstand, folgt der Rundung. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--border-width-thick) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Hilfsklassen */
+.tuda-sr-only, .tuda-visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.tuda-skip-link {
+  position: absolute; left: var(--space-4); top: var(--space-2); z-index: var(--z-tooltip);
+  padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+  background: var(--surface-inverse); color: var(--text-inverse);
+  font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-semibold);
+  transform: translateY(-200%); transition: transform var(--duration-base) var(--ease-standard);
+}
+.tuda-skip-link:focus-visible { transform: translateY(0); }
+
+/* Vorschau-Rahmen (nur Doku) */
+.tuda-preview { padding: var(--space-6); background: var(--surface-page); color: var(--text-primary); min-height: 100vh; }
+.tuda-preview--page { background: var(--surface-page); }
+.tuda-preview--flush { padding: 0; }
+.tuda-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.tuda-demo-col { display: flex; flex-direction: column; gap: var(--space-5); }
+.tuda-demo-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); align-items: start; }
+.tuda-demo-label { font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); }
+.tuda-demo-stack { display: grid; gap: var(--space-2); }
+.tuda-demo-state { display: grid; gap: 6px; justify-items: start; align-content: start; }
+.tuda-demo-state > small { font-size: var(--font-size-xs); line-height: 16px; color: var(--text-secondary); }
+.tuda-demo-states { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-5); align-items: flex-start; }
+
+/* Links: im Fließtext unterstrichen; eigenständige Links (--caps) ohne Linie, mit Pfeil */
+.tuda-link {
+  color: var(--text-link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+  border-radius: var(--radius-xs); transition: color var(--duration-fast) var(--ease-standard), text-decoration-thickness var(--duration-fast);
+}
+.tuda-link:hover { color: var(--text-link-hover); text-decoration-thickness: 2px; }
+.tuda-link .tuda-icon { width: 1em; height: 1em; vertical-align: -0.125em; margin-inline-start: 0.15em; }
+.tuda-link--caps { color: var(--text-link); font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-semibold); text-decoration: none; }
+.tuda-link--caps:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.tuda-link--arrow::after { content: "\203A"; display: inline-block; margin-inline-start: 0.3em; font-weight: var(--font-weight-semibold); text-decoration: none; transition: transform var(--duration-base) var(--ease-spring); }
+.tuda-link--arrow:hover::after { transform: translateX(3px); }
+
+/* Inline-Code & Tasten */
+.tuda-code {
+  font-family: var(--font-mono); font-size: 0.85em; padding: 0.1em 0.4em; border-radius: var(--radius-xs);
+  background: var(--surface-fill);
+}
+.tuda-kbd {
+  display: inline-flex; align-items: center; min-width: 1.6em; justify-content: center;
+  font-family: var(--font-mono); font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-medium);
+  padding: 2px 6px; border-radius: var(--radius-xs); color: var(--text-secondary);
+  background: var(--surface); box-shadow: 0 0 0 1px var(--border-subtle), 0 1px 0 var(--border-subtle);
+}
+
+/* Markierung – leise Fläche hinter Treffern, nie Gelb. Als Unterstreichung für ein Wort pro Seite. */
+.tuda-mark { background: var(--mark); color: var(--text-primary); border-radius: 3px; padding: 0 0.15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.tuda-mark--underline {
+  background: none; padding: 0; color: inherit; border-radius: 0;
+  text-decoration: underline; text-decoration-color: var(--mark-line); text-decoration-thickness: 0.18em;
+  text-underline-offset: 0.12em; text-decoration-skip-ink: none;
+}
+
+/* Linien */
+.tuda-divider { border: 0; border-top: var(--border-width-thin) solid var(--border-subtle); margin: 0; }
+.tuda-divider--ink { border-top-color: var(--border-ink); }
+
+/* Dachzeile (Eyebrow) – farbiger Abschnittskopf wie in One UI */
+.tuda-kicker {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-sans); font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-normal); color: var(--primary);
+}
+.tuda-kicker--inline, .tuda-kicker--muted { color: var(--text-secondary); }
+
+/* Kontur-Ziffern: große Ziffern als Strukturzeichen für Semester, Schritte und Kapitel */
+.tuda-numeral {
+  --_ink: var(--text-primary); --_stroke: 1.25px;
+  display: inline-block; font-family: var(--font-display); font-weight: var(--font-weight-heavy);
+  font-size: 96px; line-height: 0.8; letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums lining-nums; color: transparent; -webkit-text-stroke: var(--_stroke) var(--_ink);
+  user-select: none;
+}
+.tuda-numeral--sm { font-size: 56px; --_stroke: 1px; }
+.tuda-numeral--lg { font-size: 140px; --_stroke: 1.5px; }
+.tuda-numeral--solid { color: var(--_ink); -webkit-text-stroke: 0; }
+.tuda-numeral--accent { --_ink: var(--primary); } /* seit 0.4 wie --brand: Gelb gibt es nur noch im Neu-Badge */
+.tuda-numeral--brand { --_ink: var(--primary); }
+
+/* Icons: 24-px-Raster, 1,75-px-Strich, runde Enden (wie SF Symbols Regular). Gefüllt werden sie von TUDa.icons. */
+.tuda-icon {
+  width: var(--icon-md); height: var(--icon-md); flex: none; display: inline-block; vertical-align: middle;
+  fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+}
+.tuda-icon--sm { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-icon--lg { width: var(--icon-lg); height: var(--icon-lg); }
+.tuda-icon .is-filled { fill: currentColor; stroke: none; }
+
+/* ---------------------------------------------------------------- Textstile (aus tokens.json type.groups) */
+.tuda-text-display-xl { font-family: var(--font-display); font-size: 72px; line-height: 76px; font-weight: 800; letter-spacing: -0.035em; }
+.tuda-text-display { font-family: var(--font-display); font-size: 48px; line-height: 52px; font-weight: 800; letter-spacing: -0.03em; }
+.tuda-text-h1 { font-family: var(--font-display); font-size: 34px; line-height: 40px; font-weight: 800; letter-spacing: -0.025em; }
+.tuda-text-h2 { font-family: var(--font-display); font-size: 28px; line-height: 34px; font-weight: 700; letter-spacing: -0.02em; }
+.tuda-text-h3 { font-family: var(--font-display); font-size: 22px; line-height: 28px; font-weight: 700; letter-spacing: -0.015em; }
+.tuda-text-h4 { font-family: var(--font-display); font-size: 19px; line-height: 24px; font-weight: 700; letter-spacing: -0.01em; }
+.tuda-text-stat { font-family: var(--font-display); font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.tuda-text-fact { font-family: var(--font-display); font-size: 19px; line-height: 24px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.tuda-text-body-lg { font-family: var(--font-sans); font-size: 19px; line-height: 28px; font-weight: 400; }
+.tuda-text-body { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.tuda-text-body-sm { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.tuda-text-headline { font-family: var(--font-sans); font-size: 16px; line-height: 22px; font-weight: 600; }
+.tuda-text-label { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 600; }
+.tuda-text-label-lg { font-family: var(--font-sans); font-size: 16px; line-height: 22px; font-weight: 600; }
+.tuda-text-button, .tuda-text-label-caps { font-family: var(--font-sans); font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.tuda-text-eyebrow, .tuda-text-overline { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--primary); }
+.tuda-text-footnote { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 400; }
+.tuda-text-caption { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 400; letter-spacing: 0.01em; }
+.tuda-text-numeral { font-family: var(--font-mono); font-size: 13px; line-height: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.tuda-text-numeral-lg { font-family: var(--font-display); font-size: 28px; line-height: 32px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.tuda-text-code { font-family: var(--font-mono); font-size: 13px; line-height: 20px; font-weight: 400; }
+@media (max-width: 639.98px) {
+  .tuda-text-display-xl { font-size: 44px; line-height: 48px; }
+  .tuda-text-display { font-size: 34px; line-height: 40px; }
+  .tuda-text-h1 { font-size: 28px; line-height: 34px; }
+  .tuda-text-h2 { font-size: 22px; line-height: 28px; }
+  .tuda-numeral { font-size: 64px; }
+  .tuda-numeral--lg { font-size: 96px; }
+}
+
+/* ---------------------------------------------------------------- Button
+   Kapseln in normaler Schreibung. Primär = TU-Blau gefüllt, Tinte = schwarze Kapsel, Sekundär = grau gefüllt,
+   Tonal = blau getönt, Ghost = nur Text. Gedrückt gibt der Button weich nach. */
+.tuda-btn {
+  --_bg: transparent; --_fg: var(--primary); --_bd: transparent; --_layer: transparent;
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: var(--control-md); min-width: var(--control-md); padding: 0 var(--space-5); margin: 0;
+  border: var(--border-width-thin) solid var(--_bd); border-radius: var(--radius-full);
+  background: linear-gradient(var(--_layer), var(--_layer)) var(--_bg);
+  color: var(--_fg); font-family: var(--font-sans); font-size: 15px; line-height: 20px; font-weight: var(--font-weight-semibold); letter-spacing: 0;
+  text-align: center; text-decoration: none; white-space: normal; hyphens: manual; cursor: pointer; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard),
+              color var(--duration-fast) var(--ease-standard), transform var(--duration-base) var(--ease-spring), box-shadow var(--duration-base) var(--ease-standard);
+}
+.tuda-btn .tuda-icon { margin-inline: -2px; width: 18px; height: 18px; }
+.tuda-btn:hover, .tuda-btn.is-hover { --_layer: var(--state-hover); }
+.tuda-btn:active, .tuda-btn.is-active { --_layer: var(--state-pressed); transform: scale(0.97); }
+.tuda-btn.is-focus { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 2px; }
+
+.tuda-btn--primary { --_bg: var(--primary); --_fg: var(--on-primary); }
+.tuda-btn--primary:hover, .tuda-btn--primary.is-hover { --_bg: var(--primary-hover); --_layer: transparent; }
+.tuda-btn--primary:active, .tuda-btn--primary.is-active { --_bg: var(--primary-pressed); --_layer: transparent; }
+
+.tuda-btn--ink { --_bg: var(--surface-inverse); --_fg: var(--text-inverse); }
+.tuda-btn--ink:hover, .tuda-btn--ink.is-hover { --_layer: color-mix(in srgb, var(--text-inverse) 14%, transparent); }
+.tuda-btn--ink:active, .tuda-btn--ink.is-active { --_layer: color-mix(in srgb, var(--text-inverse) 24%, transparent); }
+
+.tuda-btn--secondary { --_bg: var(--surface-fill); --_fg: var(--text-primary); }
+.tuda-btn--tonal { --_bg: var(--primary-subtle); --_fg: var(--on-primary-subtle); }
+.tuda-btn--tonal:hover, .tuda-btn--tonal.is-hover { --_bg: var(--primary-subtle-hover); --_layer: transparent; }
+.tuda-btn--ghost { --_fg: var(--primary); padding-inline: var(--space-3); }
+.tuda-btn--ghost.tuda-btn--neutral { --_fg: var(--text-primary); }
+.tuda-btn--danger { --_bg: var(--error-solid); --_fg: var(--on-error-solid); }
+.tuda-btn--danger:hover, .tuda-btn--danger.is-hover { --_bg: var(--error-solid-hover); --_layer: transparent; }
+
+.tuda-btn--sm { min-height: var(--control-sm); min-width: var(--control-sm); padding: 0 var(--space-4); font-size: var(--font-size-md); gap: 4px; }
+.tuda-btn--sm .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-btn--lg { min-height: var(--control-lg); padding: 0 var(--space-8); font-size: 17px; line-height: 22px; }
+.tuda-btn--icon { padding: 0; width: var(--control-md); }
+.tuda-btn--icon .tuda-icon { width: var(--icon-md); height: var(--icon-md); margin: 0; }
+.tuda-btn--icon.tuda-btn--sm { width: var(--control-sm); }
+.tuda-btn--icon.tuda-btn--sm .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-btn--block { display: flex; width: 100%; }
+
+/* Deaktiviert: aria-disabled bevorzugen (bleibt fokussierbar, Grund per Tooltip erklärbar) */
+.tuda-btn:disabled, .tuda-btn[aria-disabled="true"] {
+  --_bg: var(--surface-fill); --_fg: var(--text-disabled); --_bd: transparent; --_layer: transparent;
+  cursor: not-allowed; transform: none;
+}
+.tuda-btn--ghost:disabled, .tuda-btn--ghost[aria-disabled="true"] { --_bg: transparent; }
+
+/* Laden: Beschriftung bleibt (Breite stabil), Spinner liegt darüber */
+.tuda-btn[aria-busy="true"] { color: transparent; pointer-events: none; }
+.tuda-btn[aria-busy="true"] > :not(.tuda-spinner) { visibility: hidden; }
+.tuda-btn[aria-busy="true"] > .tuda-spinner { position: absolute; inset: 0; margin: auto; color: var(--_fg); }
+
+@media (pointer: coarse) {
+  .tuda-btn--sm { min-height: var(--touch-target); min-width: var(--touch-target); }
+  .tuda-btn--icon.tuda-btn--sm { width: var(--touch-target); }
+}
+.tuda-btn-group { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.tuda-btn-group--end { justify-content: flex-end; }
+
+/* ---------------------------------------------------------------- Spinner */
+.tuda-spinner {
+  --_size: 20px;
+  width: var(--_size); height: var(--_size); flex: none; display: inline-block; border-radius: 50%;
+  border: 2px solid currentColor; border-right-color: transparent; opacity: 0.9;
+  animation: tuda-spin 760ms linear infinite;
+}
+.tuda-spinner--lg { --_size: 32px; border-width: 3px; }
+@keyframes tuda-spin { to { transform: rotate(360deg); } }
+
+/* ---------------------------------------------------------------- Field */
+.tuda-field { display: grid; gap: var(--space-2); min-width: 0; }
+.tuda-label { font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-semibold); color: var(--text-primary); hyphens: manual; }
+.tuda-label__optional { font-weight: var(--font-weight-regular); color: var(--text-secondary); }
+.tuda-hint { font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); margin-top: -2px; }
+.tuda-error { display: flex; gap: 6px; align-items: flex-start; font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--error-fg); }
+.tuda-error .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); margin-top: 1px; }
+.tuda-counter { justify-self: end; font-size: var(--font-size-xs); line-height: 16px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.tuda-field__row { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; }
+
+.tuda-input, .tuda-select, .tuda-textarea {
+  width: 100%; min-height: var(--control-md); margin: 0; padding: 0 14px;
+  font-family: var(--font-sans); font-size: var(--font-size-base); line-height: 22px; color: var(--text-primary);
+  background: var(--surface); border: var(--border-width-thin) solid var(--border-strong); border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+  -webkit-appearance: none; appearance: none;
+}
+.tuda-textarea { min-height: 112px; padding: 10px 14px; resize: vertical; display: block; }
+.tuda-input::placeholder, .tuda-textarea::placeholder { color: var(--text-tertiary); opacity: 1; }
+.tuda-input:hover, .tuda-select:hover, .tuda-textarea:hover, .tuda-input.is-hover { border-color: var(--text-secondary); }
+.tuda-input:focus-visible, .tuda-select:focus-visible, .tuda-textarea:focus-visible, .tuda-input.is-focus {
+  border-color: var(--focus-ring); box-shadow: 0 0 0 1px var(--focus-ring), 0 0 0 4px color-mix(in srgb, var(--focus-ring) 20%, transparent);
+  outline: 2px solid transparent; outline-offset: 2px;
+}
+.tuda-input[aria-invalid="true"], .tuda-select[aria-invalid="true"], .tuda-textarea[aria-invalid="true"] { border-color: var(--error-fg); }
+.tuda-input[aria-invalid="true"]:focus-visible, .tuda-select[aria-invalid="true"]:focus-visible, .tuda-textarea[aria-invalid="true"]:focus-visible { border-color: var(--error-fg); box-shadow: 0 0 0 1px var(--error-fg), 0 0 0 4px color-mix(in srgb, var(--error-fg) 18%, transparent); }
+.tuda-input:disabled, .tuda-select:disabled, .tuda-textarea:disabled {
+  background: var(--surface-fill); border-color: transparent; color: var(--text-disabled); cursor: not-allowed;
+}
+.tuda-input:disabled::placeholder { color: var(--text-disabled); }
+.tuda-input[readonly], .tuda-textarea[readonly] { background: var(--surface-fill); border-color: transparent; }
+.tuda-input[type="search"]::-webkit-search-cancel-button { display: none; }
+
+.tuda-input-wrap { position: relative; display: flex; align-items: center; min-width: 0; }
+.tuda-input-wrap > .tuda-icon { position: absolute; left: 14px; color: var(--text-secondary); pointer-events: none; }
+.tuda-input-wrap > .tuda-icon ~ .tuda-input { padding-left: 42px; }
+.tuda-input-wrap__suffix { position: absolute; right: 4px; display: flex; align-items: center; gap: 2px; }
+.tuda-input-wrap--suffix .tuda-input { padding-right: 48px; }
+.tuda-input-wrap__unit { position: absolute; right: 14px; color: var(--text-secondary); font-size: var(--font-size-md); pointer-events: none; }
+
+/* Select: nativ (beste Zugänglichkeit), eigener Pfeil */
+.tuda-select-wrap { position: relative; display: flex; align-items: center; min-width: 0; }
+.tuda-select { padding-right: 42px; cursor: pointer; text-overflow: ellipsis; }
+.tuda-select-wrap > .tuda-icon { position: absolute; right: 14px; color: var(--text-secondary); pointer-events: none; width: 18px; height: 18px; }
+.tuda-select option { color: var(--text-primary); background: var(--surface); }
+
+.tuda-fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: var(--space-1); }
+.tuda-legend { padding: 0; margin-bottom: var(--space-1); font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+.tuda-fieldset .tuda-hint { margin: -2px 0 var(--space-1); }
+.tuda-fieldset--inline .tuda-options { display: flex; flex-wrap: wrap; column-gap: var(--space-6); }
+
+/* ---------------------------------------------------------------- Checkbox & Radio – „an“ ist Blau */
+.tuda-check, .tuda-radio {
+  position: relative; display: inline-flex; align-items: flex-start; gap: var(--space-3);
+  min-height: var(--touch-target); padding: 10px 0; cursor: pointer; color: var(--text-primary);
+  font-size: var(--font-size-base); line-height: 24px; -webkit-tap-highlight-color: transparent;
+}
+.tuda-check__input, .tuda-radio__input {
+  position: absolute; opacity: 0; margin: 0; width: var(--touch-target); height: var(--touch-target);
+  left: -11px; top: 0; cursor: inherit;
+}
+.tuda-check__box, .tuda-radio__box {
+  position: relative; flex: none; width: 22px; height: 22px; margin-top: 1px; display: grid; place-items: center;
+  background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: var(--radius-xs);
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), transform var(--duration-base) var(--ease-spring);
+}
+.tuda-radio__box { border-radius: 50%; }
+.tuda-check__box svg { width: 16px; height: 16px; fill: none; stroke: var(--on-primary); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.tuda-check__box .tuda-check__tick { stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset var(--duration-delight) var(--ease-standard); }
+.tuda-check__box .tuda-check__dash { opacity: 0; }
+.tuda-radio__box::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--on-primary); transform: scale(0); transition: transform var(--duration-base) var(--ease-spring); }
+
+.tuda-check:hover .tuda-check__box, .tuda-radio:hover .tuda-radio__box, .tuda-check.is-hover .tuda-check__box { border-color: var(--text-secondary); }
+.tuda-check__input:checked + .tuda-check__box, .tuda-check__input:indeterminate + .tuda-check__box,
+.tuda-radio__input:checked + .tuda-radio__box { background: var(--primary); border-color: var(--primary); }
+.tuda-check__input:checked + .tuda-check__box .tuda-check__tick { stroke-dashoffset: 0; }
+.tuda-check__input:indeterminate + .tuda-check__box .tuda-check__tick { opacity: 0; }
+.tuda-check__input:indeterminate + .tuda-check__box .tuda-check__dash { opacity: 1; }
+.tuda-radio__input:checked + .tuda-radio__box::after { transform: scale(1); }
+.tuda-check:active .tuda-check__box, .tuda-radio:active .tuda-radio__box { transform: scale(0.9); }
+.tuda-check__input:focus-visible + .tuda-check__box, .tuda-radio__input:focus-visible + .tuda-radio__box,
+.tuda-check.is-focus .tuda-check__box { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 2px; }
+
+.tuda-check__input:disabled + .tuda-check__box, .tuda-radio__input:disabled + .tuda-radio__box { background: var(--surface-fill); border-color: transparent; }
+.tuda-check__input:disabled:checked + .tuda-check__box, .tuda-radio__input:disabled:checked + .tuda-radio__box { background: var(--text-disabled); border-color: var(--text-disabled); }
+.tuda-check:has(:disabled), .tuda-radio:has(:disabled) { color: var(--text-disabled); cursor: not-allowed; }
+.tuda-check--error .tuda-check__box, .tuda-radio--error .tuda-radio__box, .tuda-fieldset[aria-invalid="true"] .tuda-check__box { border-color: var(--error-fg); }
+.tuda-check__text { display: grid; gap: 2px; }
+.tuda-check__desc { font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); }
+.tuda-options { display: grid; }
+
+/* ---------------------------------------------------------------- Switch (iOS-Proportionen) */
+.tuda-switch {
+  position: relative; display: inline-flex; align-items: center; gap: var(--space-3); min-height: var(--touch-target);
+  cursor: pointer; color: var(--text-primary); -webkit-tap-highlight-color: transparent;
+}
+.tuda-switch--between { display: flex; justify-content: space-between; width: 100%; padding: var(--space-3) 0; gap: var(--space-6); }
+.tuda-switch__input { position: absolute; opacity: 0; margin: 0; width: 100%; height: 100%; left: 0; top: 0; cursor: inherit; }
+.tuda-switch__track {
+  position: relative; flex: none; width: 51px; height: 31px; border-radius: var(--radius-full);
+  background: var(--surface-sunken); box-shadow: inset 0 0 0 1px var(--border-strong);
+  transition: background-color var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+.tuda-switch__thumb {
+  position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%;
+  background: var(--white); display: grid; place-items: center; box-shadow: var(--shadow-1), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  transition: transform var(--duration-base) var(--ease-spring), width var(--duration-base) var(--ease-spring);
+}
+.tuda-switch__thumb svg { width: 13px; height: 13px; fill: none; stroke: var(--primary); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(0.4); transition: opacity var(--duration-fast), transform var(--duration-base) var(--ease-spring); }
+.tuda-switch:hover .tuda-switch__track { box-shadow: inset 0 0 0 1px var(--text-secondary); }
+.tuda-switch__input:checked + .tuda-switch__track { background: var(--primary); box-shadow: none; }
+.tuda-switch__input:checked + .tuda-switch__track .tuda-switch__thumb { transform: translateX(20px); }
+.tuda-switch__input:checked + .tuda-switch__track .tuda-switch__thumb svg { opacity: 1; transform: scale(1); }
+.tuda-switch:active .tuda-switch__thumb { width: 33px; }
+.tuda-switch:active .tuda-switch__input:checked + .tuda-switch__track .tuda-switch__thumb { transform: translateX(14px); }
+.tuda-switch__input:focus-visible + .tuda-switch__track, .tuda-switch.is-focus .tuda-switch__track { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 2px; }
+.tuda-switch__input:disabled + .tuda-switch__track { background: var(--surface-fill); box-shadow: none; opacity: var(--opacity-disabled); }
+.tuda-switch:has(:disabled) { color: var(--text-disabled); cursor: not-allowed; }
+.tuda-switch__text { display: grid; gap: 2px; }
+.tuda-switch__desc { font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); }
+
+/* ---------------------------------------------------------------- Segmented control – Daumen auf grauer Spur */
+.tuda-segmented {
+  display: inline-flex; width: max-content; justify-self: start; align-self: flex-start; padding: 2px; gap: 2px; border: 0;
+  border-radius: var(--radius-full); background: var(--surface-fill); max-width: 100%;
+}
+.tuda-segmented__item { position: relative; flex: 1 1 auto; display: flex; }
+.tuda-segmented__item input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.tuda-segmented__item > span {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 32px; padding: 0 var(--space-4);
+  border-radius: var(--radius-full); font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-medium);
+  color: var(--text-secondary); white-space: nowrap;
+  transition: background-color var(--duration-base) var(--ease-standard), color var(--duration-fast), box-shadow var(--duration-base) var(--ease-standard);
+}
+.tuda-segmented__item > span .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-segmented__item:hover > span { color: var(--text-primary); }
+.tuda-segmented__item input:checked + span { background: var(--control-thumb); color: var(--text-primary); font-weight: var(--font-weight-semibold); box-shadow: var(--shadow-1); }
+.tuda-segmented__item input:focus-visible + span { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 1px; }
+@media (pointer: coarse) { .tuda-segmented__item > span { min-height: 40px; } }
+/* Gleitender Daumen (--slide): gleich breite Segmente, ein Daumen gleitet mit Federung zur Wahl – wie in iOS.
+   Reines CSS über :has(); ohne Unterstützung bleibt der Daumen ohne Bewegung am gewählten Segment. 2–4 Segmente. */
+@supports selector(:has(*)) {
+  .tuda-segmented--slide { --_n: 3; --_i: 0; position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  .tuda-segmented--slide:has(> :nth-child(2):last-child) { --_n: 2; }
+  .tuda-segmented--slide:has(> :nth-child(4):last-child) { --_n: 4; }
+  .tuda-segmented--slide:has(> :nth-child(2) input:checked) { --_i: 1; }
+  .tuda-segmented--slide:has(> :nth-child(3) input:checked) { --_i: 2; }
+  .tuda-segmented--slide:has(> :nth-child(4) input:checked) { --_i: 3; }
+  .tuda-segmented--slide::before {
+    content: ""; position: absolute; z-index: 0; top: 2px; bottom: 2px; left: 2px;
+    width: calc((100% - 4px - (var(--_n) - 1) * 2px) / var(--_n));
+    border-radius: var(--radius-full); background: var(--control-thumb); box-shadow: var(--shadow-1);
+    transform: translateX(calc(var(--_i) * (100% + 2px)));
+    transition: transform var(--duration-base) var(--ease-spring);
+  }
+  .tuda-segmented--slide:not(:has(input:checked))::before { opacity: 0; }
+  .tuda-segmented--slide .tuda-segmented__item { z-index: 1; }
+  .tuda-segmented--slide .tuda-segmented__item input:checked + span { background: transparent; box-shadow: none; }
+}
+
+/* ---------------------------------------------------------------- Date picker */
+.tuda-datepicker { position: relative; }
+.tuda-calendar {
+  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 8px); left: 0; width: 336px; max-width: calc(100vw - 32px);
+  padding: var(--space-4); background: var(--surface-raised); color: var(--text-primary);
+  border: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow-2);
+  transform-origin: top left; animation: tuda-pop-in var(--duration-base) var(--ease-enter);
+}
+.tuda-calendar[hidden] { display: none; }
+.tuda-calendar__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2); }
+.tuda-calendar__title { font-family: var(--font-display); font-size: 17px; line-height: 22px; font-weight: var(--font-weight-bold); }
+.tuda-calendar__grid { --_day: 36px; width: 100%; border-collapse: collapse; table-layout: fixed; }
+.tuda-calendar__grid th { padding: 0 0 var(--space-1); font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-semibold); color: var(--text-tertiary); text-align: center; }
+.tuda-calendar__grid td { position: relative; padding: 1px; text-align: center; }
+.tuda-calendar__kw { font-size: var(--font-size-xs); color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.tuda-calendar__day {
+  position: relative; z-index: 1; width: var(--_day); height: var(--_day); max-width: 100%; display: inline-grid; place-items: center; margin: 0 auto; vertical-align: middle;
+  border: 0; border-radius: 50%; background: transparent; color: var(--text-primary); cursor: pointer;
+  font-size: var(--font-size-md); font-variant-numeric: tabular-nums; transition: background-color var(--duration-fast), transform var(--duration-base) var(--ease-spring);
+}
+.tuda-calendar__day:hover { background: var(--state-hover); }
+.tuda-calendar__day.is-outside { color: var(--text-tertiary); }
+.tuda-calendar__day.is-today { color: var(--primary); font-weight: var(--font-weight-bold); }
+td[aria-selected="true"] > .tuda-calendar__day { background: var(--primary); color: var(--on-primary); font-weight: var(--font-weight-semibold); animation: tuda-pop var(--duration-delight) var(--ease-spring); }
+.tuda-calendar__day:disabled, .tuda-calendar__day[aria-disabled="true"] { color: var(--text-disabled); text-decoration: line-through; cursor: not-allowed; background: transparent; }
+.tuda-calendar__day:focus-visible { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 1px; }
+.tuda-calendar__foot { display: flex; justify-content: space-between; gap: var(--space-2); margin-top: var(--space-3); padding-top: var(--space-3); border-top: var(--border-width-thin) solid var(--border-subtle); }
+/* Termine in Monatsansichten: Zeitraum als leises Band, Termintag als getönter Kreis mit Punkten in der Kategoriefarbe.
+   Klassen am td: is-range, is-range-start/-end (Anfang, Ende), is-cap-start/-end (Zeilen- oder Monatsrand). */
+.tuda-calendar__grid td.is-range::before {
+  content: ""; position: absolute; z-index: 0; top: 50%; left: 0; right: 0; height: var(--_day); margin-top: calc(var(--_day) / -2);
+  background: var(--surface-range); pointer-events: none;
+}
+.tuda-calendar__grid td.is-cap-start::before { left: calc(50% - var(--_day) / 2); border-start-start-radius: var(--radius-full); border-end-start-radius: var(--radius-full); }
+.tuda-calendar__grid td.is-cap-end::before { right: calc(50% - var(--_day) / 2); border-start-end-radius: var(--radius-full); border-end-end-radius: var(--radius-full); }
+.tuda-calendar__grid td.is-range-start::before { left: 50%; }
+.tuda-calendar__grid td.is-range-end::before { right: 50%; }
+.tuda-calendar__grid td.is-range-start.is-range-end::before { display: none; }
+.tuda-calendar__day.is-event { background: var(--mark); color: var(--text-primary); font-weight: var(--font-weight-semibold); padding-bottom: 3px; }
+button.tuda-calendar__day.is-event:hover { background: color-mix(in srgb, var(--mark), var(--text-primary) 7%); }
+.tuda-calendar__day.is-event.is-today { color: var(--primary); }
+.tuda-calendar__dots { position: absolute; left: 50%; bottom: 4px; display: flex; gap: 2px; transform: translateX(-50%); pointer-events: none; }
+.tuda-calendar__dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--cat, var(--primary)); }
+.tuda-calendar__day.is-clash { background: var(--error-bg); color: var(--error-fg); font-weight: var(--font-weight-bold); box-shadow: inset 0 0 0 1.5px var(--error-fg); }
+button.tuda-calendar__day.is-clash:hover { background: color-mix(in srgb, var(--error-bg), var(--error-fg) 8%); }
+@keyframes tuda-pop { 0% { transform: scale(0.8); } 100% { transform: scale(1); } }
+@keyframes tuda-pop-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+/* ---------------------------------------------------------------- Tabs – gleitender Daumen auf grauer Spur */
+.tuda-tabs { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); min-width: 0; }
+.tuda-tabs__list {
+  position: relative; display: flex; gap: 2px; width: max-content; max-width: 100%; padding: 2px;
+  border-radius: var(--radius-full); background: var(--surface-fill); overflow-x: auto; scrollbar-width: none;
+}
+.tuda-tabs__list::-webkit-scrollbar { display: none; }
+.tuda-tab {
+  position: relative; z-index: 1; flex: none; display: inline-flex; align-items: center; gap: 6px;
+  min-height: 36px; padding: 0 var(--space-4); margin: 0; border: 0; background: transparent;
+  border-radius: var(--radius-full); color: var(--text-secondary); cursor: pointer;
+  font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-medium); white-space: nowrap; hyphens: manual;
+  transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-base) var(--ease-standard);
+}
+.tuda-tab .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-tab:hover, .tuda-tab.is-hover { color: var(--text-primary); }
+.tuda-tab[aria-selected="true"] { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+.tuda-tab:focus-visible { outline-offset: -2px; }
+.tuda-tab .tuda-badge { margin-inline-start: 2px; }
+.tuda-tabs__indicator {
+  position: absolute; z-index: 0; left: 0; top: 2px; bottom: 2px; width: var(--_w, 0);
+  border-radius: var(--radius-full); background: var(--control-thumb); box-shadow: var(--shadow-1);
+  transform: translateX(var(--_x, 0));
+  transition: transform var(--duration-base) var(--ease-spring), width var(--duration-base) var(--ease-spring);
+}
+.tuda-tabs:not(.is-ready) .tuda-tab[aria-selected="true"] { background: var(--control-thumb); box-shadow: var(--shadow-1); }
+.tuda-tabs__panel:focus-visible { outline-offset: 4px; border-radius: var(--radius-md); }
+.tuda-tabs__panel[hidden] { display: none; }
+
+/* ---------------------------------------------------------------- Logo slot
+   Die Logodatei enthält ihre weiße Schutzzone. Das Feld bleibt in beiden Themes weiß (surface-logo). */
+.tuda-logo {
+  display: inline-flex; align-items: center; flex: none; height: 100%; padding: 0 var(--space-3);
+  background: var(--surface-logo); border-radius: 0; text-decoration: none;
+}
+.tuda-logo img { display: block; height: var(--logo-height); width: auto; max-width: none; }
+.tuda-logo--plate { height: auto; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); }
+.tuda-logo:focus-visible { outline-offset: -4px; }
+
+/* ---------------------------------------------------------------- Zeichen
+   Wiedererkennungsmerkmal für Apps ohne Logo-Freigabe: die Krone des Darmstädter Hochzeitsturms als fünf Rundbögen
+   mit je einem Streifen, zur Mitte hin auf einem 45°-Giebel gestaffelt, in einer Kachel im TU-Blau (48er-Raster, Eckradius 10).
+   Ab 32 px das ganze Zeichen (__mark), bei 24 px (--sm) das Kleinformat nur mit Streifen (__small).
+   Lockup in der Top-Bar: Zeichen + App-Name + Byline („by …“). Nie zusammen mit dem TU-Logo. */
+.tuda-sign { flex: none; display: block; width: 32px; height: 32px; }
+.tuda-sign--sm { width: 24px; height: 24px; }
+.tuda-sign--lg { width: 48px; height: 48px; }
+.tuda-sign__tile { fill: var(--brand-bar); }
+.tuda-sign__mark, .tuda-sign__small { fill: var(--on-brand); }
+.tuda-sign__small { display: none; }
+.tuda-sign--sm .tuda-sign__mark { display: none; }
+.tuda-sign--sm .tuda-sign__small { display: inline; }
+.tuda-sign__glass { fill: var(--on-brand); } /* ältere Markup-Fassung mit Glasstäben */
+
+/* ---------------------------------------------------------------- TU-Balken & optionale Utility-Bar */
+.tuda-brandbar { height: var(--brandbar-height); background: var(--brand-bar); }
+.tuda-utilitybar {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: var(--utilitybar-height);
+  padding: 0 var(--space-6); background: var(--surface); color: var(--text-secondary);
+  border-bottom: var(--border-width-thin) solid var(--border-subtle);
+  font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-medium);
+}
+.tuda-utilitybar strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+.tuda-utilitybar__links { display: flex; align-items: center; gap: var(--space-4); }
+.tuda-utilitybar__links a, .tuda-utilitybar__links button { color: var(--text-link); text-decoration: none; background: none; border: 0; padding: 4px 0; font: inherit; cursor: pointer; }
+.tuda-utilitybar__links a:hover, .tuda-utilitybar__links button:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+@media (max-width: 639.98px) { .tuda-utilitybar { padding: 0 var(--space-4); } .tuda-utilitybar .tuda-hide-sm { display: none; } }
+
+/* ---------------------------------------------------------------- Top bar – Glas über dem Inhalt */
+.tuda-topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--z-sticky);
+  display: flex; align-items: center; gap: var(--space-3); height: var(--topbar-height); padding-right: var(--space-4);
+  background: var(--surface-glass); -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%); backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  box-shadow: 0 1px 0 var(--border-subtle); color: var(--text-primary);
+}
+.tuda-topbar__menu { margin-left: var(--space-2); }
+.tuda-topbar__app {
+  display: flex; flex-direction: column; justify-content: center; min-width: 0; padding-left: var(--space-4);
+  border-left: var(--border-width-thin) solid var(--border-subtle); height: 36px; text-decoration: none; color: inherit;
+}
+.tuda-topbar__app:first-child { border-left: 0; padding-left: var(--space-6); }
+.tuda-topbar__app-name {
+  font-family: var(--font-display); font-size: 18px; line-height: 22px; font-weight: var(--font-weight-heavy); letter-spacing: -0.02em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tuda-topbar__app-meta { font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-medium); color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Lockup mit Zeichen (Apps ohne Logo-Freigabe): Zeichen links, Name und Byline als Spalte daneben */
+.tuda-topbar__app--signed { flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px; height: 40px; }
+.tuda-topbar__app-text { display: grid; min-width: 0; }
+.tuda-topbar__search { flex: 1 1 auto; max-width: 480px; margin-inline: auto var(--space-2); }
+.tuda-topbar__search .tuda-input { min-height: 38px; border-radius: var(--radius-full); background: var(--surface-fill); border-color: transparent; }
+.tuda-topbar__search .tuda-input:hover { border-color: transparent; }
+.tuda-topbar__search .tuda-input:focus-visible { background: var(--surface); border-color: var(--focus-ring); }
+.tuda-topbar__actions { display: flex; align-items: center; gap: var(--space-1); margin-left: auto; }
+.tuda-topbar__search + .tuda-topbar__actions { margin-left: 0; }
+.tuda-icon-badge { position: relative; display: inline-flex; }
+.tuda-icon-badge > .tuda-badge--count { position: absolute; top: 4px; right: 2px; pointer-events: none; box-shadow: 0 0 0 2px var(--surface); }
+@media (max-width: 1023.98px) { .tuda-topbar__search { display: none; } }
+@media (max-width: 639.98px) {
+  .tuda-topbar { --topbar-height: 52px; --logo-height: 44px; gap: var(--space-2); padding-right: var(--space-2); }
+  .tuda-topbar__app-meta { display: none; }
+  .tuda-topbar__app { padding-left: var(--space-2); }
+  .tuda-topbar__app:first-child { padding-left: var(--space-4); }
+  .tuda-topbar .tuda-hide-sm { display: none; }
+}
+@media (min-width: 1024px) { .tuda-topbar__menu { display: none; } }
+
+/* ---------------------------------------------------------------- Sidebar */
+.tuda-sidebar {
+  display: flex; flex-direction: column; gap: var(--space-4); width: var(--sidebar-width); min-height: 100%;
+  padding: var(--space-5) var(--space-3); background: var(--surface-page); border-right: 0;
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.tuda-nav { display: grid; gap: 2px; }
+.tuda-nav__group { display: grid; gap: 2px; padding-top: var(--space-4); }
+.tuda-nav__heading { padding: var(--space-1) var(--space-3) var(--space-1); font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); }
+.tuda-nav__item {
+  position: relative; display: flex; align-items: center; gap: var(--space-3); min-height: var(--touch-target); padding: 0 var(--space-3);
+  border-radius: var(--radius-md); color: var(--text-primary); text-decoration: none; font-size: 15px; line-height: 20px; font-weight: var(--font-weight-medium);
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast);
+}
+.tuda-nav__item .tuda-icon { color: var(--primary); }
+.tuda-nav__item:hover, .tuda-nav__item.is-hover { background: var(--state-hover); }
+.tuda-nav__item[aria-current="page"] { background: var(--primary-subtle); color: var(--on-primary-subtle); font-weight: var(--font-weight-semibold); }
+.tuda-nav__item[aria-current="page"] .tuda-icon { color: var(--on-primary-subtle); }
+.tuda-nav__item:focus-visible { outline-offset: -2px; }
+.tuda-nav__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tuda-nav__item .tuda-badge { margin-left: auto; }
+.tuda-sidebar__footer { margin-top: auto; display: grid; gap: 2px; padding-top: var(--space-3); border-top: var(--border-width-thin) solid var(--border-subtle); }
+.tuda-sidebar.is-collapsed { width: var(--sidebar-width-collapsed); }
+.tuda-sidebar.is-collapsed .tuda-nav__label, .tuda-sidebar.is-collapsed .tuda-nav__heading, .tuda-sidebar.is-collapsed .tuda-nav__item .tuda-badge { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.tuda-sidebar.is-collapsed .tuda-nav__item { justify-content: center; padding: 0; }
+
+/* ---------------------------------------------------------------- Breadcrumbs */
+.tuda-breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); margin: 0; padding: 0; list-style: none; font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); }
+.tuda-breadcrumbs li { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.tuda-breadcrumbs li + li::before { content: "\203A"; color: var(--text-tertiary); font-weight: var(--font-weight-semibold); }
+.tuda-breadcrumbs a { color: var(--text-link); text-decoration: none; padding: 2px 0; border-radius: var(--radius-xs); }
+.tuda-breadcrumbs a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.tuda-breadcrumbs [aria-current="page"] { color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 639.98px) {
+  .tuda-breadcrumbs li { display: none; }
+  .tuda-breadcrumbs li:nth-last-child(2) { display: inline-flex; }
+  .tuda-breadcrumbs li:nth-last-child(2)::before { content: "\2039"; color: var(--text-link); font-size: 20px; }
+  .tuda-breadcrumbs li:nth-last-child(2) a { min-height: var(--touch-target); display: inline-flex; align-items: center; font-size: var(--font-size-base); }
+}
+
+/* ---------------------------------------------------------------- Pagination */
+.tuda-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-6); }
+.tuda-pagination__list { display: flex; align-items: center; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.tuda-pagination__item {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1); min-width: var(--touch-target); height: var(--touch-target); padding: 0 var(--space-2);
+  border: 0; border-radius: var(--radius-full); background: transparent; color: var(--text-primary); text-decoration: none; cursor: pointer;
+  font-size: 15px; line-height: 20px; font-weight: var(--font-weight-medium); font-variant-numeric: tabular-nums;
+  transition: background-color var(--duration-fast);
+}
+.tuda-pagination__item:hover, .tuda-pagination__item.is-hover { background: var(--state-hover); }
+.tuda-pagination__item[aria-current="page"] { background: var(--primary); color: var(--on-primary); font-weight: var(--font-weight-semibold); }
+.tuda-pagination__item[aria-disabled="true"] { color: var(--text-disabled); cursor: not-allowed; background: transparent; }
+.tuda-pagination__gap { min-width: 28px; text-align: center; color: var(--text-tertiary); }
+.tuda-pagination__summary { font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.tuda-pagination__compact { display: none; font-size: var(--font-size-md); color: var(--text-secondary); padding: 0 var(--space-2); white-space: nowrap; }
+@media (max-width: 639.98px) {
+  .tuda-pagination__list .tuda-pagination__page, .tuda-pagination__gap { display: none; }
+  .tuda-pagination__compact { display: inline; }
+  .tuda-pagination__item .tuda-pagination__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+}
+
+/* ---------------------------------------------------------------- Stepper */
+.tuda-stepper { display: flex; gap: var(--space-2); margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.tuda-stepper__step { flex: 1 1 0; min-width: 0; display: grid; gap: var(--space-2); counter-increment: step; }
+.tuda-stepper__bar { height: 4px; border-radius: var(--radius-full); background: var(--skeleton); overflow: hidden; }
+.tuda-stepper__bar::after { content: ""; display: block; height: 100%; width: 0; border-radius: inherit; background: var(--primary); transition: width var(--duration-slow) var(--ease-standard); }
+.tuda-stepper__step.is-done .tuda-stepper__bar::after, .tuda-stepper__step[aria-current="step"] .tuda-stepper__bar::after { width: 100%; }
+.tuda-stepper__label { display: flex; gap: 6px; align-items: flex-start; font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); }
+.tuda-stepper__label::before { content: counter(step) "."; font-variant-numeric: tabular-nums; }
+.tuda-stepper__step.is-done .tuda-stepper__label::before { content: ""; width: 16px; height: 16px; margin-top: 1px; flex: none; background: var(--success-fg);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+.tuda-stepper__step[aria-current="step"] .tuda-stepper__label { color: var(--text-primary); }
+.tuda-stepper__compact { display: none; font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); }
+@media (max-width: 639.98px) {
+  .tuda-stepper__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tuda-stepper__compact { display: block; }
+}
+
+/* ---------------------------------------------------------------- Menu (Dropdown) – Glas */
+.tuda-menu-wrap { position: relative; display: inline-flex; }
+.tuda-menu {
+  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 8px); right: 0; min-width: 240px; max-width: min(320px, calc(100vw - 32px));
+  margin: 0; padding: 6px; list-style: none; background: var(--surface-glass); color: var(--text-primary);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%); backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 0; border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px var(--border-glass), var(--shadow-2);
+  transform-origin: top right; animation: tuda-pop-in var(--duration-base) var(--ease-enter);
+}
+.tuda-menu[hidden] { display: none; }
+.tuda-menu__header { padding: var(--space-2) var(--space-3) var(--space-3); border-bottom: var(--border-width-thin) solid var(--border-subtle); margin-bottom: 6px; font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); }
+.tuda-menu__item {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%; min-height: var(--touch-target); padding: 0 var(--space-3);
+  border: 0; border-radius: calc(var(--radius-lg) - 6px); background: transparent; color: var(--text-primary); text-align: left; text-decoration: none; cursor: pointer;
+  font-size: 15px; line-height: 20px; font-weight: var(--font-weight-regular);
+}
+.tuda-menu__item .tuda-icon { color: var(--text-secondary); }
+.tuda-menu__item:hover, .tuda-menu__item:focus-visible { background: var(--state-hover); }
+.tuda-menu__item:focus-visible { outline-offset: -2px; }
+.tuda-menu__item--danger, .tuda-menu__item--danger .tuda-icon { color: var(--error-fg); }
+.tuda-menu__sep { height: 1px; margin: 6px var(--space-3); background: var(--border-subtle); }
+
+/* ---------------------------------------------------------------- Card – Weiß auf Grau, ohne Rand */
+.tuda-card {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-4); min-width: 0;
+  padding: var(--space-5); background: var(--surface); color: var(--text-primary);
+  border: 0; border-radius: var(--radius-lg);
+}
+.tuda-card--flat { background: var(--surface-fill); }
+.tuda-card--compact { padding: var(--space-4); gap: var(--space-3); border-radius: calc(var(--radius-lg) - 4px); }
+.tuda-card--selected { box-shadow: 0 0 0 var(--border-width-thick) var(--border-selected); }
+.tuda-card--glass { background: var(--surface-glass); -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%); backdrop-filter: blur(var(--blur-glass)) saturate(180%); box-shadow: inset 0 0 0 1px var(--border-glass), var(--shadow-1); }
+.tuda-card__header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.tuda-card__title { font-family: var(--font-display); font-size: 19px; line-height: 24px; font-weight: var(--font-weight-bold); letter-spacing: -0.01em; }
+.tuda-card__eyebrow { font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); }
+.tuda-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); }
+.tuda-card__meta > span { display: inline-flex; align-items: center; gap: 6px; }
+.tuda-card__meta .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-card__footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: auto; padding-top: var(--space-4); border-top: var(--border-width-thin) solid var(--border-subtle); }
+.tuda-card--interactive { transition: box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring); }
+.tuda-card--interactive:hover, .tuda-card--interactive.is-hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+.tuda-card--interactive:active { transform: scale(0.99); }
+.tuda-card__link { color: inherit; text-decoration: none; }
+.tuda-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.tuda-card__link:focus-visible { outline: none; }
+.tuda-card--interactive:has(.tuda-card__link:focus-visible) { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 2px; }
+.tuda-card :is(button, a):not(.tuda-card__link) { position: relative; z-index: 1; }
+
+/* Kennzahl */
+.tuda-stat { display: grid; gap: var(--space-1); }
+.tuda-stat__label { font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); }
+.tuda-stat__value { font-family: var(--font-display); font-size: var(--font-size-4xl); line-height: 44px; font-weight: var(--font-weight-bold); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.tuda-stat__value small { font-family: var(--font-sans); font-size: 15px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); letter-spacing: 0; }
+.tuda-stat__delta { display: inline-flex; align-items: center; gap: 6px; font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+.tuda-stat__delta .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-stat__delta--up { color: var(--success-fg); }
+.tuda-stat__delta--down { color: var(--error-fg); }
+
+/* ---------------------------------------------------------------- Kennzahlenzeile (Facts)
+   Der Überblick über einer Ansicht: zwei bis vier Wert-Paare ohne eigene Fläche, durch Haarlinien getrennt.
+   Ersetzt das dunkle Tinten-Widget aus 0.3. Markup: dl.tuda-facts > div.tuda-facts__item > dt + dd + dd. */
+.tuda-facts { display: flex; flex-wrap: wrap; gap: var(--space-3) 0; margin: 0; padding: 0; }
+.tuda-facts__item { display: grid; gap: 2px; align-content: start; min-width: 0; padding: 0 var(--space-6); box-shadow: inset 1px 0 0 var(--border-subtle); }
+.tuda-facts__item:first-child { padding-left: 0; box-shadow: none; }
+.tuda-facts__label { margin: 0; font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); }
+.tuda-facts__value { margin: 0; font-family: var(--font-display); font-size: var(--font-size-lg); line-height: 24px; font-weight: var(--font-weight-semibold); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+.tuda-facts__value small { font-family: var(--font-sans); font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); letter-spacing: 0; color: var(--text-secondary); }
+.tuda-facts__note { display: flex; align-items: center; gap: 4px; margin: 0; font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.tuda-facts__note .tuda-icon { width: 14px; height: 14px; }
+@media (max-width: 639.98px) {
+  .tuda-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .tuda-facts__item, .tuda-facts__item:first-child { padding: 0; box-shadow: none; }
+}
+/* Zentriert (--center): gleich breite Spalten, Werte mittig – für Kennzahlen in einer Karte, etwa unter einem Diagramm. */
+.tuda-facts--center { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 0; text-align: center; }
+.tuda-facts--center .tuda-facts__item, .tuda-facts--center .tuda-facts__item:first-child { justify-items: center; padding: 0 var(--space-3); box-shadow: none; }
+.tuda-facts--center .tuda-facts__item + .tuda-facts__item { box-shadow: inset 1px 0 0 var(--border-subtle); }
+.tuda-facts--center .tuda-facts__note { justify-content: center; text-align: center; }
+@media (max-width: 639.98px) {
+  .tuda-facts--center { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-4); }
+  .tuda-facts--center .tuda-facts__item + .tuda-facts__item { box-shadow: none; }
+}
+
+/* ---------------------------------------------------------------- Tile – Kachel aus getöntem Glas
+   Für Objekte, die man verschiebt oder einplant (Module, Termine, Plätze). Farbe über .tuda-tile--1 … --8
+   (Kategorien data-1 … data-8) oder eigene --tint/--edge/--ink. Gefüllt = geplant, --outline = erledigt,
+   --slot = leerer Platz, --floating = beim Ziehen über dem Inhalt. Text bleibt in Textfarben. */
+.tuda-tile {
+  --tint: var(--data-8-tint); --edge: var(--data-8-edge); --ink: var(--data-8);
+  --_rim: inset 0 0 0 1px var(--edge);
+  --_lift: 0 1px 2px color-mix(in srgb, var(--ink) 14%, transparent);
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1); min-width: 0; padding: 9px 10px 10px;
+  border: 0; border-radius: var(--radius-md); color: var(--text-primary); text-align: left;
+  background: linear-gradient(180deg, var(--surface-sheen), transparent 58%) var(--tint);
+  box-shadow: var(--_rim), inset 0 1px 0 var(--border-glass), var(--_lift);
+  transition: box-shadow var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring);
+}
+.tuda-tile--1 { --tint: var(--data-1-tint); --edge: var(--data-1-edge); --ink: var(--data-1); }
+.tuda-tile--2 { --tint: var(--data-2-tint); --edge: var(--data-2-edge); --ink: var(--data-2); }
+.tuda-tile--3 { --tint: var(--data-3-tint); --edge: var(--data-3-edge); --ink: var(--data-3); }
+.tuda-tile--4 { --tint: var(--data-4-tint); --edge: var(--data-4-edge); --ink: var(--data-4); }
+.tuda-tile--5 { --tint: var(--data-5-tint); --edge: var(--data-5-edge); --ink: var(--data-5); }
+.tuda-tile--6 { --tint: var(--data-6-tint); --edge: var(--data-6-edge); --ink: var(--data-6); }
+.tuda-tile--7 { --tint: var(--data-7-tint); --edge: var(--data-7-edge); --ink: var(--data-7); }
+.tuda-tile--8 { --tint: var(--data-8-tint); --edge: var(--data-8-edge); --ink: var(--data-8); }
+:is(a, button, [tabindex]).tuda-tile:hover, .tuda-tile.is-hover { --_lift: 0 2px 8px color-mix(in srgb, var(--ink) 20%, transparent); }
+.tuda-tile__title { font-size: var(--font-size-md); line-height: 18px; font-weight: var(--font-weight-semibold); overflow-wrap: anywhere; hyphens: auto; }
+.tuda-tile__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; font-size: var(--font-size-xs); line-height: 16px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.tuda-tile__meta > span { display: inline-flex; align-items: center; gap: 4px; min-width: 0; }
+.tuda-tile__kicker { font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tuda-tile .tuda-icon { width: 13px; height: 13px; }
+.tuda-tile__title .tuda-icon { margin-inline-end: 4px; vertical-align: -1px; color: var(--text-secondary); }
+.tuda-tile__badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+.tuda-tile.is-focus { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 2px; }
+.tuda-tile--outline { background: transparent; box-shadow: var(--_rim); }
+.tuda-tile--outline .tuda-tile__title { color: var(--text-secondary); }
+.tuda-tile--slot { background: transparent; box-shadow: none; border: 1.5px dashed var(--edge); }
+:is(a, button, [tabindex]).tuda-tile--slot:hover, .tuda-tile--slot.is-hover { background: color-mix(in srgb, var(--tint) 72%, transparent); }
+.tuda-tile--floating, .tuda-tile.is-floating {
+  background: linear-gradient(180deg, var(--surface-sheen), transparent 58%) color-mix(in srgb, var(--tint) 84%, transparent);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(160%); backdrop-filter: blur(var(--blur-glass)) saturate(160%);
+  box-shadow: var(--_rim), inset 0 1px 0 var(--border-glass), var(--shadow-2);
+}
+
+/* ---------------------------------------------------------------- Table – in einer Karte, ruhige Trennlinien */
+.tuda-table-wrap {
+  position: relative; overflow-x: auto; border: 0; border-radius: var(--radius-lg);
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) left center / 40px 100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) right center / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--state-pressed), transparent) left center / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--state-pressed), transparent) right center / 12px 100% no-repeat scroll,
+    var(--surface);
+}
+.tuda-table-wrap--scroll { max-height: 440px; overflow: auto; }
+.tuda-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15px; line-height: 20px; font-variant-numeric: tabular-nums; }
+.tuda-table caption { padding: var(--space-5) var(--space-5) var(--space-2); text-align: left; font-family: var(--font-display); font-size: 19px; line-height: 24px; font-weight: var(--font-weight-bold); color: var(--text-primary); }
+.tuda-table th {
+  position: sticky; top: 0; z-index: var(--z-raised); padding: var(--space-3) var(--space-4); text-align: left; vertical-align: bottom; white-space: nowrap;
+  font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary);
+  background: var(--surface); border-bottom: var(--border-width-thin) solid var(--border-subtle);
+}
+.tuda-table th:first-child, .tuda-table td:first-child { padding-left: var(--space-5); }
+.tuda-table th:last-child, .tuda-table td:last-child { padding-right: var(--space-5); }
+.tuda-table td { padding: var(--space-3) var(--space-4); vertical-align: middle; border-bottom: var(--border-width-thin) solid var(--border-subtle); color: var(--text-primary); }
+.tuda-table tbody tr:last-child td { border-bottom: 0; }
+.tuda-table tbody tr { transition: background-color var(--duration-fast); }
+.tuda-table tbody tr:hover td, .tuda-table tbody tr.is-hover td { background: var(--state-hover); }
+.tuda-table tbody tr[aria-selected="true"] td { background: var(--surface-selected); }
+.tuda-table .is-num { text-align: right; }
+.tuda-table .is-check { width: 52px; padding-right: 0; }
+.tuda-table .is-check .tuda-check { padding: 0; min-height: 24px; }
+.tuda-table .is-check .tuda-check__box { margin: 0; }
+.tuda-table__secondary { display: block; color: var(--text-secondary); font-family: var(--font-mono); font-size: var(--font-size-xs); line-height: 16px; }
+.tuda-table--dense th, .tuda-table--dense td { padding: var(--space-2) var(--space-3); }
+.tuda-table--zebra tbody tr:nth-child(even) td { background: var(--surface-fill); }
+.tuda-th-sort {
+  display: inline-flex; align-items: center; gap: 4px; margin: -6px -8px; padding: 6px 8px; border: 0; border-radius: var(--radius-sm);
+  background: transparent; color: inherit; font: inherit; cursor: pointer; white-space: nowrap;
+}
+.tuda-th-sort:hover { background: var(--state-hover); color: var(--text-primary); }
+.tuda-th-sort .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); opacity: 0.55; }
+th[aria-sort="ascending"] .tuda-th-sort, th[aria-sort="descending"] .tuda-th-sort { color: var(--text-primary); }
+th[aria-sort="ascending"] .tuda-th-sort .tuda-icon, th[aria-sort="descending"] .tuda-th-sort .tuda-icon { opacity: 1; color: var(--primary); }
+.tuda-table__empty td { padding: var(--space-12) var(--space-4); text-align: center; color: var(--text-secondary); }
+.tuda-table__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-5); border-bottom: var(--border-width-thin) solid var(--border-subtle); background: var(--surface); }
+.tuda-table__toolbar.is-selection { background: var(--primary-subtle); color: var(--on-primary-subtle); }
+/* Quer (--transposed): Kategorien als Spalten (Notenstufen, Wochen), Kennzahlen als Zeilen – wie TUCaN den Notenspiegel
+   zeigt. Zeilenköpfe (th[scope=row]) bleiben beim waagerechten Scrollen stehen, die Kopfzeile ist kräftiger abgesetzt,
+   primäre Zeilen (tr.is-primary) in Tinte. Eine Spalte hervorheben: .is-current an jeder ihrer Zellen; Status: .is-error. */
+.tuda-table--transposed th, .tuda-table--transposed td { text-align: center; }
+.tuda-table--transposed th[scope="row"] { left: 0; text-align: left; }
+.tuda-table--transposed thead th { color: var(--text-primary); font-size: var(--font-size-md); line-height: 20px; border-bottom-color: var(--border-strong); }
+.tuda-table--transposed thead th[scope="row"] { color: var(--text-secondary); font-size: var(--font-size-sm); }
+.tuda-table--transposed td { color: var(--text-secondary); font-size: var(--font-size-sm); }
+.tuda-table--transposed tr.is-primary td { color: var(--text-primary); font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+.tuda-table--transposed tbody tr:last-child th { border-bottom: 0; }
+.tuda-table.tuda-table--transposed .is-error { color: var(--error-fg); }
+.tuda-table.tuda-table--transposed .is-current { background: var(--surface-selected); color: var(--text-primary); font-weight: var(--font-weight-bold); }
+
+/* ---------------------------------------------------------------- List – gruppiert, eingerückte Trennlinien */
+.tuda-list { --_inset: 0px; display: grid; margin: 0; padding: 0; list-style: none; }
+.tuda-list--divided > li { position: relative; }
+.tuda-list--divided > li + li::before { content: ""; position: absolute; z-index: 1; top: 0; left: var(--_inset); right: 0; border-top: var(--border-width-thin) solid var(--border-subtle); pointer-events: none; }
+.tuda-list--card { --_inset: var(--space-4); background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; }
+.tuda-list__item { display: flex; align-items: center; gap: var(--space-3); min-height: 52px; padding: var(--space-3) var(--space-4); color: var(--text-primary); text-decoration: none; }
+.tuda-list__lead { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--surface-fill); color: var(--text-secondary); }
+.tuda-list__lead .tuda-icon { width: 18px; height: 18px; }
+.tuda-list__lead--brand { background: var(--primary); color: var(--on-primary); }
+.tuda-list__content { flex: 1 1 auto; min-width: 0; display: grid; gap: 2px; }
+.tuda-list__title { font-size: var(--font-size-base); line-height: 22px; font-weight: var(--font-weight-medium); overflow-wrap: anywhere; }
+.tuda-list__meta { font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); }
+.tuda-list__trail { flex: none; display: flex; align-items: center; gap: var(--space-2); color: var(--text-secondary); font-size: var(--font-size-md); }
+.tuda-list__chevron { color: var(--text-tertiary); }
+a.tuda-list__item, button.tuda-list__item { width: 100%; border: 0; background: transparent; text-align: left; font: inherit; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard); }
+a.tuda-list__item:hover, button.tuda-list__item:hover, .tuda-list__item.is-hover { background: var(--state-hover); }
+a.tuda-list__item:active, button.tuda-list__item:active { background: var(--state-pressed); }
+a.tuda-list__item:focus-visible, button.tuda-list__item:focus-visible { outline-offset: -2px; border-radius: var(--radius-md); }
+a.tuda-list__item .tuda-list__chevron { transition: transform var(--duration-base) var(--ease-spring); }
+a.tuda-list__item:hover .tuda-list__chevron { transform: translateX(3px); }
+.tuda-list__item[aria-current="true"] { background: var(--surface-selected); }
+.tuda-dl { display: grid; grid-template-columns: minmax(120px, max-content) 1fr; gap: var(--space-3) var(--space-6); margin: 0; font-size: 15px; line-height: 20px; }
+.tuda-dl dt { color: var(--text-secondary); }
+.tuda-dl dd { margin: 0; color: var(--text-primary); min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 479.98px) { .tuda-dl { grid-template-columns: 1fr; gap: 2px; } .tuda-dl dd + dt { margin-top: var(--space-3); } }
+
+/* ---------------------------------------------------------------- Modal (native <dialog>) – Sheet */
+.tuda-modal {
+  width: min(560px, calc(100vw - 32px)); max-height: min(760px, calc(100dvh - 48px)); padding: 0; margin: auto;
+  border: 0; border-radius: var(--radius-xl);
+  background: var(--surface-raised); color: var(--text-primary); box-shadow: var(--shadow-3); overflow: hidden;
+  opacity: 0; transform: translateY(16px) scale(0.98);
+  transition: opacity var(--duration-slow) var(--ease-enter), transform var(--duration-slow) var(--ease-enter), overlay var(--duration-slow) allow-discrete, display var(--duration-slow) allow-discrete;
+}
+.tuda-modal[open] { opacity: 1; transform: none; display: flex; flex-direction: column; }
+@starting-style { .tuda-modal[open] { opacity: 0; transform: translateY(16px) scale(0.98); } }
+.tuda-modal::backdrop { background: var(--overlay); -webkit-backdrop-filter: blur(var(--blur-overlay)); backdrop-filter: blur(var(--blur-overlay)); opacity: 0; transition: opacity var(--duration-slow) var(--ease-standard), overlay var(--duration-slow) allow-discrete, display var(--duration-slow) allow-discrete; }
+.tuda-modal[open]::backdrop { opacity: 1; }
+@starting-style { .tuda-modal[open]::backdrop { opacity: 0; } }
+.tuda-modal--sm { width: min(440px, calc(100vw - 32px)); }
+.tuda-modal--lg { width: min(780px, calc(100vw - 32px)); }
+.tuda-modal__header { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-6) var(--space-6) var(--space-2); }
+.tuda-modal__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--error-bg); color: var(--error-fg); }
+.tuda-modal__icon--info { background: var(--primary-subtle); color: var(--on-primary-subtle); }
+.tuda-modal__title { flex: 1; font-family: var(--font-display); font-size: var(--font-size-xl); line-height: 28px; font-weight: var(--font-weight-bold); letter-spacing: -0.015em; padding-top: 8px; }
+.tuda-modal__close { margin: -2px -8px 0 auto; }
+.tuda-modal__close.tuda-btn--ghost { --_bg: var(--surface-fill); --_fg: var(--text-secondary); width: 32px; min-width: 32px; min-height: 32px; height: 32px; }
+.tuda-modal__body { padding: var(--space-2) var(--space-6) var(--space-6); overflow-y: auto; color: var(--text-secondary); display: grid; gap: var(--space-4); }
+.tuda-modal__body strong { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
+.tuda-modal__footer { display: flex; flex-wrap: wrap-reverse; justify-content: flex-end; gap: var(--space-3); padding: var(--space-2) var(--space-6) var(--space-6); background: var(--surface-raised); }
+@media (max-width: 479.98px) {
+  .tuda-modal { width: 100vw; max-width: 100vw; margin: auto 0 0; border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .tuda-modal::before { content: ""; align-self: center; flex: none; width: 36px; height: 5px; margin-top: 8px; border-radius: var(--radius-full); background: var(--border-subtle); }
+  .tuda-modal__footer .tuda-btn { flex: 1 1 100%; }
+}
+.tuda-modal--static { position: relative; display: flex; flex-direction: column; opacity: 1; transform: none; margin: 0; max-width: 100%; }
+/* Blatt mit Karten (--page): getöntes Glas – Seitengrund, leicht durchscheinend, mit blauem und violettem Schimmer oben –,
+   damit weiße Karten darin stehen, und fast die volle Fensterhöhe –
+   für große Inhalte wie den Notenspiegel. Kopf bleibt stehen, der Körper scrollt. Die Zeilen des Körpers wachsen mit
+   ihrem Inhalt: Tabellen sind selbst Scrollcontainer und schrumpften im Raster sonst auf null Höhe; die Spalte ist
+   minmax(0, 1fr), sonst spannt eine breite Tabelle das Blatt über den Bildschirmrand. */
+.tuda-modal--page {
+  max-height: calc(100dvh - 32px);
+  background:
+    radial-gradient(95% 60% at 0% 0%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 72%),
+    radial-gradient(75% 50% at 100% 0%, color-mix(in srgb, var(--data-6) 16%, transparent), transparent 72%),
+    radial-gradient(80% 50% at 50% 100%, color-mix(in srgb, var(--data-2) 8%, transparent), transparent 70%),
+    color-mix(in srgb, var(--surface-page) 84%, transparent);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%); backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  box-shadow: inset 0 0 0 1px var(--border-glass), var(--shadow-3);
+}
+.tuda-modal--page::backdrop { background: color-mix(in srgb, var(--overlay) 70%, transparent); }
+.tuda-modal--page .tuda-modal__body { grid-template-columns: minmax(0, 1fr); grid-auto-rows: max-content; align-content: start; color: var(--text-primary); }
+.tuda-modal--page.tuda-modal--static { max-height: none; }
+.tuda-modal--page.tuda-modal--static .tuda-modal__body { overflow: visible; }
+/* Steuerung im Kopf (z. B. ein Switch) neben dem Schließen, auf dessen Mitte ausgerichtet */
+.tuda-modal__actions { flex: none; display: flex; align-items: center; gap: var(--space-4); margin-top: -8px; font-size: var(--font-size-md); line-height: 20px; }
+
+/* ---------------------------------------------------------------- Alert */
+.tuda-alert {
+  --_fg: var(--info-fg); --_bg: var(--info-bg);
+  display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-radius: var(--radius-lg);
+  background: var(--_bg); border: 0; color: var(--text-primary);
+}
+.tuda-alert > .tuda-icon { color: var(--_fg); margin-top: 2px; }
+.tuda-alert--success { --_fg: var(--success-fg); --_bg: var(--success-bg); }
+.tuda-alert--warning { --_fg: var(--warning-fg); --_bg: var(--warning-bg); }
+.tuda-alert--error { --_fg: var(--error-fg); --_bg: var(--error-bg); }
+.tuda-alert--neutral { --_fg: var(--text-secondary); --_bg: var(--surface); }
+.tuda-alert__content { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.tuda-alert__title { font-size: var(--font-size-base); line-height: 22px; font-weight: var(--font-weight-semibold); }
+.tuda-alert__text { font-size: var(--font-size-md); line-height: 20px; color: var(--text-primary); }
+.tuda-alert__actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-2); }
+.tuda-alert__actions .tuda-link { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+.tuda-alert__close { margin: -10px -12px -10px 0; --_fg: var(--text-secondary); }
+.tuda-alert--banner { border-radius: 0; }
+
+/* ---------------------------------------------------------------- Toast – Glas */
+.tuda-toast-region {
+  position: fixed; z-index: var(--z-toast); right: var(--space-6); bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-direction: column-reverse; gap: var(--space-3); width: min(420px, calc(100vw - 32px)); pointer-events: none;
+}
+.tuda-toast-region--inline { position: static; width: 100%; max-width: 420px; }
+.tuda-toast {
+  --_fg: var(--info-fg);
+  pointer-events: auto; display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  background: var(--surface-glass); color: var(--text-primary);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%); backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 0; border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px var(--border-glass), var(--shadow-3);
+  animation: tuda-toast-in var(--duration-slow) var(--ease-enter);
+}
+.tuda-toast > .tuda-icon { color: var(--_fg); margin-top: 12px; }
+.tuda-toast--success { --_fg: var(--success-fg); }
+.tuda-toast--warning { --_fg: var(--warning-fg); }
+.tuda-toast--error { --_fg: var(--error-fg); }
+.tuda-toast__content { flex: 1; min-width: 0; padding: 10px 0; display: grid; gap: 2px; }
+.tuda-toast__title { font-size: 15px; line-height: 20px; font-weight: var(--font-weight-semibold); }
+.tuda-toast__text { font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); }
+.tuda-toast__actions { display: flex; align-items: center; gap: var(--space-1); padding: 4px 0; }
+.tuda-toast.is-leaving { animation: tuda-toast-out var(--duration-base) var(--ease-exit) forwards; }
+@keyframes tuda-toast-in { from { opacity: 0; transform: translateY(16px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes tuda-toast-out { to { opacity: 0; transform: translateY(8px) scale(0.98); } }
+@media (max-width: 639.98px) { .tuda-toast-region { left: 50%; right: auto; transform: translateX(-50%); bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); } }
+
+/* ---------------------------------------------------------------- Tooltip */
+.tuda-tooltip {
+  position: absolute; z-index: var(--z-tooltip); max-width: 240px; padding: 6px 10px; border-radius: var(--radius-sm);
+  background: var(--surface-inverse); color: var(--text-inverse); font-size: 13px; line-height: 18px; font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-2); pointer-events: auto; opacity: 0; transform: translateY(4px) scale(0.98);
+  transition: opacity var(--duration-base) var(--ease-enter), transform var(--duration-base) var(--ease-enter);
+}
+.tuda-tooltip.is-visible { opacity: 1; transform: none; }
+.tuda-tooltip[hidden] { display: none; }
+.tuda-tooltip::after { content: ""; position: absolute; left: var(--_arrow, 50%); top: 100%; width: 12px; height: 6px; margin-left: -6px; background: inherit; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.tuda-tooltip[data-placement="bottom"]::after { top: auto; bottom: 100%; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.tuda-tooltip--static { position: relative; display: inline-block; opacity: 1; transform: none; }
+
+/* ---------------------------------------------------------------- Badge – getönte Kapsel */
+.tuda-badge {
+  --_fg: var(--text-secondary); --_bg: var(--surface-fill);
+  display: inline-flex; align-items: center; gap: 4px; max-width: 100%; padding: 2px 9px; border-radius: var(--radius-full);
+  background: var(--_bg); color: var(--_fg); border: 0;
+  font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-semibold); letter-spacing: 0;
+  white-space: nowrap; hyphens: manual; vertical-align: middle; font-variant-numeric: tabular-nums;
+}
+.tuda-badge .tuda-icon { width: 13px; height: 13px; margin-inline-start: -2px; stroke-width: 2.25; }
+.tuda-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: none; }
+.tuda-badge--primary { --_fg: var(--on-primary-subtle); --_bg: var(--primary-subtle); }
+.tuda-badge--ink { --_fg: var(--text-inverse); --_bg: var(--surface-inverse); }
+.tuda-badge--success { --_fg: var(--success-fg); --_bg: var(--success-bg); }
+.tuda-badge--warning { --_fg: var(--warning-fg); --_bg: var(--warning-bg); }
+.tuda-badge--error { --_fg: var(--error-fg); --_bg: var(--error-bg); }
+.tuda-badge--info { --_fg: var(--info-fg); --_bg: var(--info-bg); }
+.tuda-badge--new { --_fg: var(--on-accent); --_bg: var(--accent); }
+.tuda-badge--count { --_fg: var(--on-error-solid); --_bg: var(--error-solid); min-width: 20px; height: 20px; padding: 0 6px; justify-content: center; }
+.tuda-badge--num { --_fg: var(--text-primary); --_bg: var(--surface-fill); font-weight: var(--font-weight-medium); }
+/* Gezeichnetes Status-Icon (--draw): Das Badge erscheint, Häkchen bzw. Achteck zeichnen sich (delight, 480 ms) –
+   nur für Ergebnisse, die gerade sichtbar werden. Alle Pfade des Icons brauchen pathLength="1". Selektor über das Element, nicht über [pathLength]:
+   Chrome wertet Attribut-Selektoren auf SVG-Attributen mit Großbuchstaben nach Klassenwechseln nicht neu aus. */
+.tuda-badge--draw { animation: tuda-pop-in var(--duration-base) var(--ease-enter) both; animation-delay: var(--delay, 0ms); }
+.tuda-badge--draw .tuda-icon path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tuda-draw var(--duration-delight) var(--ease-standard) forwards; animation-delay: calc(var(--delay, 0ms) + 120ms); }
+@keyframes tuda-draw { to { stroke-dashoffset: 0; } }
+
+/* ---------------------------------------------------------------- Tag / Chip – gewählt = blau getönt mit Häkchen */
+.tuda-tag {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 var(--space-4); margin: 0;
+  border-radius: var(--radius-full); border: 0; background: var(--surface-fill); color: var(--text-primary);
+  font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-medium); white-space: nowrap; hyphens: manual; cursor: pointer;
+  transition: background-color var(--duration-fast), color var(--duration-fast), transform var(--duration-base) var(--ease-spring);
+}
+.tuda-tag .tuda-icon { width: var(--icon-sm); height: var(--icon-sm); }
+.tuda-tag::before { content: ""; position: absolute; inset: -5px 0; }
+button.tuda-tag:hover, .tuda-tag.is-hover { background: linear-gradient(var(--state-hover), var(--state-hover)) var(--surface-fill); }
+button.tuda-tag:active { transform: scale(0.96); }
+.tuda-tag[aria-pressed="true"] { background: var(--primary-subtle); color: var(--on-primary-subtle); font-weight: var(--font-weight-semibold); }
+.tuda-tag__check { display: none; }
+.tuda-tag[aria-pressed="true"] .tuda-tag__check { display: inline-block; animation: tuda-pop var(--duration-base) var(--ease-spring); }
+.tuda-tag--static { cursor: default; background: transparent; box-shadow: inset 0 0 0 1px var(--border-subtle); }
+.tuda-tag--removable { padding-right: 4px; cursor: default; }
+.tuda-tag__remove { display: inline-grid; place-items: center; width: 26px; height: 26px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--text-secondary); cursor: pointer; }
+.tuda-tag__remove:hover { background: var(--state-pressed); color: var(--text-primary); }
+.tuda-tag__remove .tuda-icon { width: 14px; height: 14px; stroke-width: 2.25; }
+.tuda-tag:disabled { color: var(--text-disabled); cursor: not-allowed; background: var(--surface-fill); }
+@media (pointer: coarse) { .tuda-tag::before { inset: -5px -2px; } .tuda-tag__remove { width: 32px; height: 32px; } }
+.tuda-tag-list { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+
+/* ---------------------------------------------------------------- Progress – Kapseln */
+.tuda-progress-field { display: grid; gap: var(--space-2); }
+.tuda-progress-field__head { display: flex; justify-content: space-between; gap: var(--space-3); font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-semibold); }
+.tuda-progress-field__value { color: var(--text-secondary); font-weight: var(--font-weight-medium); font-variant-numeric: tabular-nums; }
+.tuda-progress { position: relative; height: 6px; border-radius: var(--radius-full); background: var(--skeleton); overflow: hidden; }
+.tuda-progress__bar { display: block; height: 100%; width: var(--value, 0%); border-radius: inherit; background: var(--primary); transition: width var(--duration-slow) var(--ease-standard); }
+.tuda-progress--success .tuda-progress__bar { background: var(--success-fg); }
+.tuda-progress--ink .tuda-progress__bar { background: var(--text-primary); }
+.tuda-progress--sm { height: 4px; }
+.tuda-progress--indeterminate .tuda-progress__bar { width: 40%; position: absolute; animation: tuda-indeterminate 1.4s var(--ease-standard) infinite; }
+@keyframes tuda-indeterminate { 0% { left: -40%; } 100% { left: 100%; } }
+
+/* ---------------------------------------------------------------- Skeleton */
+.tuda-skeleton { display: block; background: var(--skeleton); border-radius: var(--radius-xs); animation: tuda-pulse 1.6s ease-in-out infinite; }
+.tuda-skeleton--text { height: 12px; margin: 6px 0; border-radius: var(--radius-full); }
+.tuda-skeleton--title { height: 22px; width: 60%; border-radius: var(--radius-full); }
+.tuda-skeleton--circle { border-radius: 50%; }
+.tuda-skeleton--rect { border-radius: var(--radius-lg); }
+@keyframes tuda-pulse { 0%, 100% { opacity: 1; } 50% { opacity: var(--opacity-skeleton); } }
+
+/* ---------------------------------------------------------------- Empty state */
+.tuda-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3); padding: var(--space-12) var(--space-6); }
+.tuda-empty__art { width: 168px; height: 128px; margin-bottom: var(--space-2); }
+.tuda-empty__title { font-family: var(--font-display); font-size: var(--font-size-xl); line-height: 28px; font-weight: var(--font-weight-bold); letter-spacing: -0.015em; max-width: 30ch; }
+.tuda-empty__text { max-width: 44ch; color: var(--text-secondary); font-size: 15px; line-height: 22px; }
+.tuda-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-3); }
+.tuda-empty--compact { padding: var(--space-8) var(--space-4); }
+.tuda-empty--compact .tuda-empty__art { width: 120px; height: 92px; }
+.tuda-ill .ill-line { fill: none; stroke: var(--text-primary); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tuda-ill .ill-soft { fill: var(--primary-subtle); }
+.tuda-ill .ill-paper { fill: var(--surface-raised); }
+.tuda-ill .ill-ground { fill: var(--surface-fill); }
+.tuda-ill .ill-accent { fill: var(--mark-line); }
+.tuda-ill .ill-brand { fill: var(--primary); }
+.tuda-ill .ill-check { fill: none; stroke: var(--on-primary); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tuda-ill .ill-dash { fill: none; stroke: var(--text-tertiary); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 2 6; }
+.tuda-ill .ill-float { animation: tuda-float 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes tuda-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+/* ---------------------------------------------------------------- Avatar */
+.tuda-avatar {
+  --_size: var(--avatar-md);
+  position: relative; display: inline-grid; place-items: center; flex: none; width: var(--_size); height: var(--_size); border-radius: 50%;
+  background: var(--primary-subtle); color: var(--on-primary-subtle); font-size: calc(var(--_size) * 0.38); line-height: 1; font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em; user-select: none;
+}
+.tuda-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.tuda-avatar--xs { --_size: var(--avatar-xs); font-size: 10px; }
+.tuda-avatar--sm { --_size: var(--avatar-sm); }
+.tuda-avatar--lg { --_size: var(--avatar-lg); }
+.tuda-avatar--neutral { background: var(--surface-fill); color: var(--text-secondary); }
+.tuda-avatar__status { position: absolute; right: 0; bottom: 0; width: 30%; height: 30%; min-width: 8px; min-height: 8px; border-radius: 50%; background: var(--success-fg); box-shadow: 0 0 0 2px var(--surface); }
+.tuda-avatar__status--away { background: var(--surface); box-shadow: inset 0 0 0 2px var(--text-tertiary), 0 0 0 2px var(--surface); }
+.tuda-avatar-group { display: inline-flex; align-items: center; }
+.tuda-avatar-group .tuda-avatar { box-shadow: 0 0 0 2px var(--surface-page); }
+.tuda-avatar-group .tuda-avatar + .tuda-avatar { margin-left: -8px; }
+.tuda-avatar--more { background: var(--surface-fill); color: var(--text-secondary); font-size: calc(var(--_size) * 0.32); }
+button.tuda-avatar { border: 0; padding: 0; cursor: pointer; transition: transform var(--duration-base) var(--ease-spring); }
+button.tuda-avatar:hover { transform: scale(1.05); }
+
+/* ---------------------------------------------------------------- Layout primitives */
+.tuda-container { width: 100%; max-width: var(--container-xl); margin-inline: auto; padding-inline: var(--grid-margin-sm); }
+@media (min-width: 768px) { .tuda-container { padding-inline: var(--grid-margin-md); } }
+@media (min-width: 1024px) { .tuda-container { padding-inline: var(--grid-margin-lg); } }
+.tuda-container--md { max-width: var(--container-md); }
+.tuda-container--sm { max-width: var(--container-sm); }
+.tuda-grid { display: grid; grid-template-columns: repeat(var(--grid-columns-sm), minmax(0, 1fr)); gap: var(--grid-gutter-sm); }
+@media (min-width: 768px) { .tuda-grid { grid-template-columns: repeat(var(--grid-columns-md), minmax(0, 1fr)); gap: var(--grid-gutter-lg); } }
+@media (min-width: 1024px) { .tuda-grid { grid-template-columns: repeat(var(--grid-columns-lg), minmax(0, 1fr)); } }
+.tuda-col-full { grid-column: 1 / -1; }
+@media (min-width: 768px) { .tuda-col-md-1 { grid-column: span 1; } .tuda-col-md-2 { grid-column: span 2; } .tuda-col-md-3 { grid-column: span 3; } .tuda-col-md-4 { grid-column: span 4; } .tuda-col-md-5 { grid-column: span 5; } .tuda-col-md-6 { grid-column: span 6; } .tuda-col-md-7 { grid-column: span 7; } .tuda-col-md-8 { grid-column: span 8; } }
+@media (min-width: 1024px) { .tuda-col-lg-1 { grid-column: span 1; } .tuda-col-lg-2 { grid-column: span 2; } .tuda-col-lg-3 { grid-column: span 3; } .tuda-col-lg-4 { grid-column: span 4; } .tuda-col-lg-5 { grid-column: span 5; } .tuda-col-lg-6 { grid-column: span 6; } .tuda-col-lg-7 { grid-column: span 7; } .tuda-col-lg-8 { grid-column: span 8; } .tuda-col-lg-9 { grid-column: span 9; } .tuda-col-lg-10 { grid-column: span 10; } .tuda-col-lg-11 { grid-column: span 11; } .tuda-col-lg-12 { grid-column: span 12; } }
+.tuda-stack { display: flex; flex-direction: column; gap: var(--_gap, var(--space-4)); min-width: 0; }
+.tuda-stack--sm { --_gap: var(--space-2); } .tuda-stack--lg { --_gap: var(--space-8); }
+.tuda-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--_gap, var(--space-3)); }
+.tuda-measure { max-width: var(--measure); }
+
+/* ---------------------------------------------------------------- App shell */
+.tuda-shell { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; min-height: 100dvh; background: var(--surface-page); }
+.tuda-shell > .tuda-topbar, .tuda-shell > .tuda-brandbar, .tuda-shell > .tuda-utilitybar { grid-column: 1 / -1; }
+.tuda-shell > .tuda-shell__nav, .tuda-shell > .tuda-shell__main { grid-row: 4; }
+.tuda-shell__nav { position: sticky; top: var(--topbar-height); height: calc(100dvh - var(--topbar-height)); }
+.tuda-shell__main { min-width: 0; padding-block: var(--space-10) var(--space-16); }
+.tuda-shell__scrim { display: none; }
+@media (max-width: 1023.98px) {
+  .tuda-shell { grid-template-columns: minmax(0, 1fr); }
+  .tuda-shell__nav {
+    position: fixed; z-index: var(--z-modal); top: 0; left: 0; bottom: 0; height: auto; transform: translateX(-100%);
+    background: var(--surface); border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+    transition: transform var(--duration-slow) var(--ease-standard), visibility 0s linear var(--duration-slow); visibility: hidden; box-shadow: var(--shadow-3);
+  }
+  .tuda-shell.is-nav-open .tuda-shell__nav { transform: none; visibility: visible; transition: transform var(--duration-slow) var(--ease-enter), visibility 0s; }
+  .tuda-shell.is-nav-open .tuda-shell__scrim { display: block; position: fixed; inset: 0; z-index: var(--z-overlay); background: var(--overlay); -webkit-backdrop-filter: blur(var(--blur-overlay)); backdrop-filter: blur(var(--blur-overlay)); animation: tuda-fade-in var(--duration-slow) var(--ease-standard); }
+  .tuda-shell__main { padding-block: var(--space-6) var(--space-12); }
+}
+@keyframes tuda-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.tuda-shell--demo { position: relative; min-height: 0; height: 100%; overflow: hidden; }
+.tuda-shell--demo > .tuda-topbar { position: relative; top: 0; }
+.tuda-shell--demo .tuda-shell__nav { height: auto; }
+@media (min-width: 1024px) { .tuda-shell--demo .tuda-shell__nav { position: static; } }
+@media (max-width: 1023.98px) {
+  .tuda-shell--demo .tuda-shell__nav { position: absolute; }
+  .tuda-shell--demo.is-nav-open .tuda-shell__scrim { position: absolute; }
+}
+
+/* Seitenkopf: großer Titel frei auf dem Seitengrund (Large Title / One-UI-Kopfbereich) */
+.tuda-page-header {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-6);
+  margin-bottom: var(--space-10); padding: var(--space-6) 0 0; border: 0;
+}
+.tuda-page-header__text { display: grid; gap: var(--space-2); min-width: 0; }
+.tuda-page-header__title { font-family: var(--font-display); font-size: var(--font-size-5xl); line-height: 52px; font-weight: var(--font-weight-heavy); letter-spacing: -0.03em; }
+.tuda-page-header__lead { max-width: var(--measure); margin-top: var(--space-1); color: var(--text-secondary); font-size: var(--font-size-lg); line-height: 28px; }
+@media (max-width: 639.98px) { .tuda-page-header { padding-top: var(--space-2); } .tuda-page-header__title { font-size: 34px; line-height: 40px; } .tuda-page-header__lead { font-size: var(--font-size-base); line-height: 24px; } }
+.tuda-section { display: grid; gap: var(--space-4); }
+.tuda-section__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-2) var(--space-6); padding: 0 var(--space-1); }
+.tuda-section__heading { display: flex; align-items: flex-end; gap: var(--space-3); min-width: 0; }
+.tuda-section__index { font-size: 40px; --_stroke: 1px; --_ink: var(--text-tertiary); }
+.tuda-section__title { font-family: var(--font-display); font-size: var(--font-size-2xl); line-height: 34px; font-weight: var(--font-weight-bold); letter-spacing: -0.02em; }
+
+/* Filterleiste */
+.tuda-filterbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); }
+.tuda-filterbar > .tuda-field { flex: 1 1 200px; }
+.tuda-filterbar > .tuda-field--grow { flex: 3 1 280px; }
+
+/* Combobox / Suche */
+.tuda-combobox { position: relative; }
+.tuda-listbox {
+  position: absolute; z-index: var(--z-dropdown); top: calc(100% + 8px); left: 0; right: 0; max-height: 360px; overflow-y: auto;
+  margin: 0; padding: 6px; list-style: none; background: var(--surface-glass); -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%); backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  border: 0; border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px var(--border-glass), var(--shadow-2); animation: tuda-pop-in var(--duration-base) var(--ease-enter);
+}
+.tuda-listbox[hidden] { display: none; }
+.tuda-listbox__group { padding: var(--space-2) var(--space-3) var(--space-1); font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--text-secondary); }
+.tuda-option { display: flex; align-items: center; gap: var(--space-3); min-height: var(--touch-target); padding: 6px var(--space-3); border-radius: calc(var(--radius-lg) - 6px); cursor: pointer; color: var(--text-primary); }
+.tuda-option .tuda-icon { color: var(--text-secondary); }
+.tuda-option__text { display: grid; min-width: 0; }
+.tuda-option__meta { font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); }
+.tuda-option:hover, .tuda-option.is-active { background: var(--state-hover); }
+.tuda-option.is-active { box-shadow: inset 0 0 0 2px var(--focus-ring); }
+.tuda-option[aria-selected="true"] { background: var(--surface-selected); }
+.tuda-listbox__empty { padding: var(--space-4) var(--space-3); color: var(--text-secondary); font-size: var(--font-size-md); }
+.tuda-search-result { display: grid; gap: 2px; padding: var(--space-4) 0; border-bottom: var(--border-width-thin) solid var(--border-subtle); }
+.tuda-search-result__title { font-family: var(--font-display); font-size: var(--font-size-lg); line-height: 24px; font-weight: var(--font-weight-bold); letter-spacing: -0.01em; }
+.tuda-search-result__path { font-size: var(--font-size-sm); line-height: 18px; color: var(--text-secondary); }
+.tuda-search-result__text { color: var(--text-secondary); font-size: var(--font-size-md); line-height: 20px; }
+
+/* Einstellungen */
+.tuda-settings { display: grid; gap: var(--space-8); grid-template-columns: 220px minmax(0, 1fr); align-items: start; }
+.tuda-settings__nav { position: sticky; top: calc(var(--topbar-height) + var(--space-6)); }
+@media (max-width: 767.98px) { .tuda-settings { grid-template-columns: minmax(0, 1fr); } .tuda-settings__nav { position: static; } }
+.tuda-setting-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); padding: var(--space-3) 0; min-height: 52px; }
+.tuda-setting-row + .tuda-setting-row { border-top: var(--border-width-thin) solid var(--border-subtle); }
+.tuda-setting-row__text { display: grid; gap: 2px; min-width: 0; }
+.tuda-setting-row__title { font-weight: var(--font-weight-medium); }
+.tuda-setting-row__desc { font-size: var(--font-size-md); line-height: 20px; color: var(--text-secondary); }
+@media (max-width: 479.98px) { .tuda-setting-row--stack { flex-direction: column; align-items: stretch; } }
+.tuda-danger-zone { box-shadow: inset 0 0 0 1px var(--error-border); }
+
+/* Anmeldung / Landing */
+.tuda-signin { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 100%; background: var(--surface-page); }
+.tuda-signin__brand { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-8); margin: var(--space-3); padding: var(--space-10); border-radius: var(--radius-xl); background: var(--surface-brand); color: var(--on-brand); overflow: hidden; }
+.tuda-signin__form { display: flex; flex-direction: column; justify-content: center; gap: var(--space-6); padding: var(--space-10) clamp(24px, 6vw, 72px); max-width: 560px; }
+@media (max-width: 899.98px) { .tuda-signin { grid-template-columns: minmax(0, 1fr); } .tuda-signin__brand { padding: var(--space-6); gap: var(--space-6); } .tuda-signin__form { padding: var(--space-8) var(--space-4); } }
+
+/* Diagramm (Balken, eine Reihe) */
+.tuda-chart { display: grid; gap: var(--space-3); }
+.tuda-chart__body { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: var(--space-3); row-gap: var(--space-2); }
+.tuda-chart__y { position: relative; height: 144px; margin-top: var(--space-6); min-width: 1.5em; font-size: var(--font-size-xs); line-height: 16px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.tuda-chart__y span { position: absolute; right: 0; bottom: var(--p); transform: translateY(50%); }
+.tuda-chart__plot { position: relative; display: grid; grid-template-columns: repeat(var(--_n, 7), minmax(0, 1fr)); align-items: end; gap: 8px; height: 144px; margin-top: var(--space-6); border-bottom: var(--border-width-thin) solid var(--border-subtle); }
+.tuda-chart__grid { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(to top, transparent 0 calc(25% - 1px), var(--border-subtle) calc(25% - 1px) 25%); opacity: 0.7; }
+.tuda-chart__target { position: absolute; left: 0; right: 0; bottom: var(--p); z-index: 1; border-top: 1.5px dashed var(--text-tertiary); pointer-events: none; }
+.tuda-chart__target span { position: absolute; right: 0; bottom: 4px; padding: 0 6px; border-radius: var(--radius-full); background: var(--surface); font-size: var(--font-size-xs); line-height: 16px; color: var(--text-secondary); }
+.tuda-chart__bar { position: relative; height: var(--h); min-height: 4px; border-radius: 6px 6px 3px 3px; background: var(--chart-default); outline: none; cursor: default; transition: filter var(--duration-fast); transform-origin: bottom; }
+.tuda-chart__bar.is-current { background: var(--chart-emphasis); }
+.tuda-chart__bar:hover, .tuda-chart__bar:focus-visible { filter: brightness(1.12); }
+.tuda-chart__bar:focus-visible { outline: var(--border-width-thick) solid var(--focus-ring); outline-offset: 2px; }
+.tuda-chart__tip { position: absolute; z-index: 2; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 4px 8px; border-radius: var(--radius-sm); background: var(--surface-inverse); color: var(--text-inverse); font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-medium); white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity var(--duration-fast); }
+.tuda-chart__bar:hover .tuda-chart__tip, .tuda-chart__bar:focus-visible .tuda-chart__tip { opacity: 1; }
+.tuda-chart__axis { grid-column: 2; display: grid; grid-template-columns: repeat(var(--_n, 7), minmax(0, 1fr)); gap: 8px; font-size: var(--font-size-xs); line-height: 16px; color: var(--text-secondary); text-align: center; font-variant-numeric: tabular-nums; }
+.tuda-chart__axis .is-current { color: var(--primary); font-weight: var(--font-weight-semibold); }
+
+/* Verteilung (Histogramm) – .tuda-chart--distribution
+   Eine Reihe über einer festen Skala (Notenstufen, Punktbereiche). Die Kohorte steht als blau getöntes Glas, der
+   eigene Wert massiv in chart-emphasis mit leichtem Schein darunter; ein Status (.is-error, z. B. 5,0) ist rot
+   getönt, ein eigener Statuswert massiv rot – Status schlägt Betonung. Werte stehen über den Balken statt an einer
+   y-Achse; oben bleibt ein Fünftel der Höhe für Werte und Fläche frei (--h = Anteil an der Skalenspitze). Der
+   Mittelwert ist eine gestrichelte Senkrechte mit Kapsel (__mean, --x), die Fläche dahinter (__curve) ist
+   Gestaltung, keine Datenreihe. Einblenden nur nach einer Handlung (--animate), nie beim Scrollen. */
+.tuda-chart__bar.is-error { background: var(--error-solid); }
+.tuda-chart--distribution .tuda-chart__body { grid-template-columns: minmax(0, 1fr); }
+.tuda-chart--distribution .tuda-chart__plot { height: var(--plot-h, 200px); margin-top: var(--space-8); gap: 0; }
+.tuda-chart--distribution .tuda-chart__axis { grid-column: 1; gap: 0; }
+/* Ohne Spaltenabstand liegt jede Balkenmitte exakt bei (i + 0,5) / n – Fläche und Mittelwert rechnen damit. */
+.tuda-chart--distribution .tuda-chart__bar {
+  --_tone: var(--primary); --_top: var(--primary-subtle-hover); --_base: var(--primary-subtle);
+  z-index: 1; justify-self: center; width: min(calc(100% - 8px), 44px); height: calc(var(--h) * 0.8); min-height: 3px;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--_tone) 24%, var(--_top)), color-mix(in srgb, var(--_tone) 10%, var(--_base)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--_tone) 34%, transparent), inset 0 1px 0 var(--border-glass);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+.tuda-chart--distribution .tuda-chart__bar.is-error { --_tone: var(--error-solid); --_top: var(--error-border); --_base: var(--error-bg); }
+.tuda-chart--distribution .tuda-chart__bar.is-current {
+  --_tone: var(--chart-emphasis);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--_tone) 68%, var(--surface)), var(--_tone));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 20px -10px var(--_tone);
+}
+.tuda-chart--distribution .tuda-chart__bar.is-current.is-error { --_tone: var(--error-solid); }
+.tuda-chart--distribution .tuda-chart__bar.is-empty { min-height: 0; box-shadow: none; }
+.tuda-chart--distribution .tuda-chart__bar:hover, .tuda-chart--distribution .tuda-chart__bar:focus-visible { filter: none; transform: translateY(-3px); }
+.tuda-chart__axis .is-error { color: var(--error-fg); }
+.tuda-chart--distribution .tuda-chart__axis span { justify-self: center; padding: 2px 8px; border-radius: var(--radius-full); transition: background-color var(--duration-base) var(--ease-standard), color var(--duration-fast) var(--ease-standard); }
+.tuda-chart--distribution .tuda-chart__axis .is-current { background: var(--chart-emphasis); color: var(--on-primary); }
+.tuda-chart--distribution .tuda-chart__axis .is-current.is-error { background: var(--error-solid); color: var(--on-error-solid); }
+.tuda-chart__value {
+  position: absolute; left: 50%; bottom: calc(100% + 4px); transform: translateX(-50%);
+  font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-medium); color: var(--text-secondary);
+  white-space: nowrap; font-variant-numeric: tabular-nums; pointer-events: none;
+}
+.tuda-chart__bar.is-current .tuda-chart__value { color: var(--text-primary); font-weight: var(--font-weight-bold); }
+.tuda-chart--distribution .tuda-chart__bar.is-current .tuda-chart__value { color: var(--_tone); }
+.tuda-chart__mean { position: absolute; z-index: 2; top: 0; bottom: 0; left: var(--x); width: 0; margin-left: -0.75px; border-left: 1.5px dashed var(--text-tertiary); pointer-events: none; }
+.tuda-chart__mean > span {
+  position: absolute; left: 0; bottom: calc(100% + 6px); transform: translateX(calc(-50% + var(--shift, 0px)));
+  display: inline-flex; align-items: baseline; gap: 4px; padding: 2px 10px; border-radius: var(--radius-full);
+  background: var(--surface); box-shadow: inset 0 0 0 1px var(--border-subtle), var(--shadow-1);
+  font-size: var(--font-size-xs); line-height: 16px; font-weight: var(--font-weight-semibold); color: var(--text-primary);
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.tuda-chart__mean small { font-size: inherit; font-weight: var(--font-weight-medium); color: var(--text-secondary); }
+.tuda-chart__curve { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.tuda-chart__line { fill: none; stroke: var(--chart-default); stroke-opacity: 0.4; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.tuda-chart__area { stroke: none; }
+.tuda-chart__curve stop { stop-color: var(--chart-default); stop-opacity: 0; }
+.tuda-chart__curve stop:nth-child(1) { stop-opacity: 0.24; }
+.tuda-chart__curve stop:nth-child(2) { stop-opacity: 0.08; }
+.tuda-chart__curve stop:nth-child(3) { stop-opacity: 0.015; }
+.tuda-chart--animate .tuda-chart__bar { animation: tuda-grow-y var(--duration-slow) var(--ease-enter) both; animation-delay: calc(var(--delay, 0ms) + var(--i, 0) * 30ms); }
+.tuda-chart--animate .tuda-chart__value { animation: tuda-fade-in var(--duration-base) var(--ease-standard) both; animation-delay: calc(var(--delay, 0ms) + var(--i, 0) * 30ms + 200ms); }
+.tuda-chart--animate .tuda-chart__curve { animation: tuda-fade-in var(--duration-slow) var(--ease-standard) both; animation-delay: calc(var(--delay, 0ms) + 120ms); }
+.tuda-chart--animate .tuda-chart__mean { animation: tuda-fade-in var(--duration-base) var(--ease-standard) both; animation-delay: calc(var(--delay, 0ms) + var(--_n, 7) * 30ms + 160ms); }
+@keyframes tuda-grow-y { from { transform: scaleY(0); } }
+
+/* Anteilsbalken (Ratio) – .tuda-ratio
+   Zwei Teile eines Ganzen (bestanden / nicht bestanden) als getönte Glaskapseln auf einer Linie mit ihren Anzahlen;
+   die Bezeichnungen mit Farbpunkt stehen darüber und dürfen bis in die Mitte reichen. Farben wie im Diagramm darüber:
+   primary für die Kohorte, error für den Status. Der Prozentwert steht genau einmal – im Segment, neben der Anzahl
+   (__value--pct) oder bei zu wenig Platz für alle außen (--compact). */
+.tuda-ratio { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-4); row-gap: 4px; }
+.tuda-ratio__label { grid-row: 1; grid-column: 1 / 3; justify-self: start; display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: var(--font-size-md); line-height: 20px; font-weight: var(--font-weight-semibold); color: var(--text-primary); white-space: nowrap; }
+.tuda-ratio__label::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+.tuda-ratio__label--end { grid-column: 2 / 4; justify-self: end; }
+.tuda-ratio__label--end::before { background: var(--error-solid); }
+.tuda-ratio__value { grid-row: 2; grid-column: 1; margin: 0; font-family: var(--font-display); font-size: var(--font-size-lg); line-height: 24px; font-weight: var(--font-weight-semibold); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; color: var(--text-primary); white-space: nowrap; }
+.tuda-ratio__value--end { grid-column: 3; justify-self: end; }
+.tuda-ratio__pct { display: none; margin-left: 6px; font-family: var(--font-sans); font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); letter-spacing: 0; color: var(--text-secondary); }
+.tuda-ratio__track { grid-row: 2; grid-column: 2; display: flex; gap: 4px; height: 30px; min-width: 0; }
+.tuda-ratio__seg {
+  --_tone: var(--primary); --_top: var(--primary-subtle-hover); --_base: var(--primary-subtle); --_ink: var(--on-primary-subtle);
+  flex: var(--v, 1) 0 0; min-width: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  border-radius: var(--radius-full); color: var(--_ink);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--_tone) 18%, var(--_top)), color-mix(in srgb, var(--_tone) 8%, var(--_base)));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--_tone) 34%, transparent), inset 0 1px 0 var(--border-glass);
+  font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; white-space: nowrap;
+  transform-origin: left center;
+}
+.tuda-ratio__seg--error { --_tone: var(--error-solid); --_top: var(--error-border); --_base: var(--error-bg); --_ink: var(--text-primary); transform-origin: right center; }
+.tuda-ratio__value--pct .tuda-ratio__pct { display: inline; }
+.tuda-ratio--compact .tuda-ratio__seg > span { display: none; }
+.tuda-ratio--compact .tuda-ratio__pct { display: inline; }
+.tuda-ratio--compact .tuda-ratio__label { grid-column: 1; }
+.tuda-ratio--compact .tuda-ratio__label--end { grid-column: 3; }
+.tuda-ratio--animate .tuda-ratio__seg { animation: tuda-grow-x var(--duration-slow) var(--ease-enter) both; animation-delay: var(--delay, 0ms); }
+.tuda-ratio--animate .tuda-ratio__seg > span { animation: tuda-fade-in var(--duration-base) var(--ease-standard) both; animation-delay: calc(var(--delay, 0ms) + 200ms); }
+@keyframes tuda-grow-x { from { transform: scaleX(0); } }
+
+/* Ergebnis (Result) – getönte Glaskarte für genau eine eigene Leistung
+   Bezeichnung, großer Wert (Archivo 48), Einordnung und rechts ein Siegel, dessen Icon sich beim Erscheinen zeichnet.
+   Farbe über --tint / --edge / --ink wie bei Tile: --success und --error für den Status, ohne Modifikator TU-Blau.
+   Der Wert bleibt in Tinte, Bezeichnung, Einordnung und Siegel tragen die Statusfarbe – mit Wort, nie nur Farbe. */
+.tuda-result {
+  --tint: var(--primary-subtle); --edge: color-mix(in srgb, var(--primary) 28%, transparent); --ink: var(--on-primary-subtle);
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  min-width: 0; padding: var(--space-4) var(--space-6) var(--space-4) var(--space-5); border-radius: var(--radius-lg); color: var(--text-primary);
+  background: radial-gradient(120% 170% at 0% 0%, var(--surface-sheen), transparent 55%), linear-gradient(135deg, var(--tint), color-mix(in srgb, var(--ink) 12%, var(--tint)));
+  box-shadow: inset 0 0 0 1px var(--edge), inset 0 1px 0 var(--border-glass), 0 1px 2px color-mix(in srgb, var(--ink) 12%, transparent), 0 14px 30px -18px var(--ink);
+}
+.tuda-result--success { --tint: var(--success-bg); --edge: var(--success-border); --ink: var(--success-fg); }
+.tuda-result--error { --tint: var(--error-bg); --edge: var(--error-border); --ink: var(--error-fg); }
+.tuda-result__body { display: grid; gap: 0; min-width: 0; }
+.tuda-result__label { margin: 0; font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--ink); }
+.tuda-result__value { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--space-3); margin: 0; }
+.tuda-result__number { font-family: var(--font-display); font-size: var(--font-size-5xl); line-height: 52px; font-weight: var(--font-weight-heavy); letter-spacing: -0.035em; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+.tuda-result__meta { font-size: 15px; line-height: 20px; font-weight: var(--font-weight-semibold); color: var(--ink); }
+.tuda-result__status { flex: none; display: grid; justify-items: center; gap: 6px; font-size: var(--font-size-sm); line-height: 18px; font-weight: var(--font-weight-semibold); color: var(--ink); }
+.tuda-result__mark { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: var(--tint); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 10px 20px -10px var(--ink); }
+.tuda-result__mark .tuda-icon { width: 26px; height: 26px; stroke-width: 2.4; }
+.tuda-result--animate .tuda-result__mark { animation: tuda-pop-scale var(--duration-slow) var(--ease-spring) both; animation-delay: var(--delay, 0ms); }
+.tuda-result--animate .tuda-result__mark path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tuda-draw var(--duration-delight) var(--ease-standard) forwards; animation-delay: calc(var(--delay, 0ms) + 160ms); }
+@keyframes tuda-pop-scale { from { opacity: 0; transform: scale(0.6); } }
+@media (max-width: 479.98px) { .tuda-result { padding: var(--space-4); } .tuda-result__number { font-size: var(--font-size-4xl); line-height: 44px; } .tuda-result__mark { width: 40px; height: 40px; } }
+
+/* Termin-/Fristenliste: Datums-Chip wie ein Kalender-Icon, „bald“ leise blau getönt */
+.tuda-date-chip { flex: none; display: grid; place-items: center; align-content: center; gap: 2px; width: 52px; height: 56px; border-radius: var(--radius-md); background: var(--surface-fill); color: var(--text-primary); line-height: 1; }
+.tuda-date-chip__day { font-family: var(--font-display); font-size: 22px; font-weight: var(--font-weight-bold); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.tuda-date-chip__month { order: -1; font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--primary); }
+.tuda-date-chip--soon { background: var(--mark); }
+.tuda-date-chip--quiet { background: transparent; box-shadow: inset 0 0 0 1px var(--border-subtle); }
+
+/* ---------------------------------------------------------------- Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+  .tuda-btn:active, .tuda-card--interactive:hover, .tuda-card--interactive:active, .tuda-tag:active, .tuda-tile:active, .tuda-check:active .tuda-check__box, .tuda-radio:active .tuda-radio__box,
+  button.tuda-avatar:hover, a.tuda-list__item:hover .tuda-list__chevron, .tuda-link--arrow:hover::after { transform: none; }
+  .tuda-skeleton, .tuda-spinner { animation-duration: 0.01ms !important; }
+  .tuda-spinner { border-right-color: currentColor; opacity: 0.6; }
+  .tuda-progress--indeterminate .tuda-progress__bar { left: 0; width: 100%; opacity: 0.5; }
+  .tuda-ill .ill-float { animation: none; }
+  .tuda-chart--animate *, .tuda-ratio--animate *, .tuda-result--animate *, .tuda-badge--draw, .tuda-badge--draw * { animation-delay: 0s !important; }
+  .tuda-chart--distribution .tuda-chart__bar:hover, .tuda-chart--distribution .tuda-chart__bar:focus-visible { transform: none; }
+}
+
+/* ---------------------------------------------------------------- Windows-Kontrastmodus / forced colors */
+@media (forced-colors: active) {
+  .tuda-btn, .tuda-tag, .tuda-segmented__item span, .tuda-pagination__item, .tuda-tab, .tuda-nav__item, .tuda-menu__item { border: 1px solid ButtonText; }
+  .tuda-btn--primary, .tuda-btn--ink, .tuda-pagination__item[aria-current="page"] { forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight; }
+  .tuda-nav__item[aria-current="page"], .tuda-tab[aria-selected="true"], .tuda-tag[aria-pressed="true"], .tuda-segmented__item input:checked + span { border: 2px solid Highlight; }
+  .tuda-check__box, .tuda-radio__box, .tuda-switch__track { border: 2px solid ButtonText; }
+  .tuda-check__input:checked + .tuda-check__box, .tuda-radio__input:checked + .tuda-radio__box,
+  .tuda-switch__input:checked + .tuda-switch__track { background: Highlight; border-color: Highlight; }
+  .tuda-switch__thumb { background: ButtonText; }
+  .tuda-progress, .tuda-stepper__bar { border: 1px solid CanvasText; }
+  .tuda-progress__bar, .tuda-stepper__bar::after, .tuda-brandbar, .tuda-tabs__indicator { background: Highlight; }
+  .tuda-card, .tuda-alert, .tuda-toast, .tuda-modal, .tuda-menu, .tuda-listbox, .tuda-calendar, .tuda-tooltip, .tuda-tile, .tuda-list--card, .tuda-table-wrap { border: 1px solid CanvasText; }
+  .tuda-calendar__day.is-event, .tuda-calendar__day.is-clash { outline: 1px solid CanvasText; outline-offset: -1px; }
+  .tuda-calendar__dots i { forced-color-adjust: none; }
+  .tuda-numeral { -webkit-text-stroke-color: CanvasText; }
+  .tuda-logo { forced-color-adjust: none; background: #fff; }
+  .tuda-sign { forced-color-adjust: none; }
+  .tuda-chart__bar, .tuda-ratio__seg { forced-color-adjust: none; background: CanvasText; color: Canvas; }
+  .tuda-result { border: 1px solid CanvasText; }
+  .tuda-result__mark { forced-color-adjust: none; background: CanvasText; color: Canvas; }
+  .tuda-chart__bar.is-current { background: Highlight; }
+  .tuda-chart__value, .tuda-chart__tip { forced-color-adjust: auto; }
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 2px solid Highlight; }
+}
+
+/* ---------------------------------------------------------------- Print */
+@media print {
+  .tuda-topbar, .tuda-utilitybar, .tuda-brandbar, .tuda-shell__nav, .tuda-toast-region, .tuda-skip-link { display: none !important; }
+  .tuda-shell { display: block; }
+  .tuda-card, .tuda-table-wrap, .tuda-tile { break-inside: avoid; box-shadow: none; border: 1px solid #999; }
+  body { background: #fff; color: #000; }
+}

@@ -1,0 +1,25 @@
+name: Release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  zip:
+    name: ZIP-Dateien veröffentlichen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Je Skill eine ZIP-Datei bauen
+        run: |
+          mkdir -p dist
+          cd skills
+          for d in */; do
+            n="${d%/}"
+            zip -rq "../dist/$n.zip" "$n" -x '*/__pycache__/*' '*.pyc'
+            unzip -l "../dist/$n.zip" | grep -q " $n/SKILL.md$"
+          done
+      - name: Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/*.zip --title "Lernhelfer $GITHUB_REF_NAME" --notes-file .github/release-hinweise.md

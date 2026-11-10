@@ -1,0 +1,39 @@
+name: Fehler melden
+description: Ein Skill bricht ab, ein Skript meldet einen Fehler oder das PDF sieht falsch aus
+labels: ["Fehler"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke fürs Melden. Bitte lade keine Vorlesungsfolien, Altklausuren oder persönlichen Daten hoch – ein kurzer Ausschnitt der Fehlermeldung reicht meist.
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill
+      options:
+        - Klausurtrainer
+        - Foliennotizen
+    validations:
+      required: true
+  - type: dropdown
+    id: umgebung
+    attributes:
+      label: Wo nutzt du den Skill?
+      options:
+        - claude.ai im Browser
+        - Claude Desktop-App
+        - Claude Code
+    validations:
+      required: true
+  - type: textarea
+    id: was
+    attributes:
+      label: Was ist passiert?
+      description: Was hast du gemacht, was ist passiert, was hättest du erwartet?
+    validations:
+      required: true
+  - type: textarea
+    id: meldung
+    attributes:
+      label: Fehlermeldung oder Ausgabe
+      render: text
