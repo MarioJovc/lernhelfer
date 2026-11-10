@@ -1,0 +1,44 @@
+{
+ "seed": 91827,
+ "modus": "balanciert",
+ "optionen": 4,
+ "richtige": 1,
+ "buchstaben": [
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "zuordnung": [
+  {
+   "nr": 1,
+   "id": "F1",
+   "richtige_positionen": [
+    3
+   ],
+   "richtige_buchstaben": [
+    "D"
+   ]
+  },
+  {
+   "nr": 2,
+   "id": "F2",
+   "richtige_positionen": [
+    2
+   ],
+   "richtige_buchstaben": [
+    "C"
+   ]
+  },
+  {
+   "nr": 3,
+   "id": "F3",
+   "richtige_positionen": [
+    1
+   ],
+   "richtige_buchstaben": [
+    "B"
+   ]
+  }
+ ]
+}

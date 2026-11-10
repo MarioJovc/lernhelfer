@@ -1,0 +1,349 @@
+{
+  "meta": {
+    "modul": "Einführung in die Wirtschaftsinformatik",
+    "modulkuerzel": "EWI",
+    "dozent": "Prof. Dr. M. Beispiel",
+    "semester": "WiSe 2026/27",
+    "variante": "Probeklausur A",
+    "bearbeitungszeit_min": 60,
+    "gesamtpunkte": 58,
+    "hilfsmittel": "Keine",
+    "antwortraum_stil": "linien",
+    "personalienfelder": [
+      "Name, Vorname",
+      "Matrikelnummer",
+      "Studiengang"
+    ],
+    "hinweise": [
+      "Bearbeiten Sie alle Aufgaben. Die Punktzahl je Aufgabe steht am Rand.",
+      "Antworten sind ausschließlich in den vorgesehenen Feldern zu notieren.",
+      "Verwenden Sie einen dokumentenechten Stift, kein Bleistift."
+    ],
+    "grundlagen": [
+      {
+        "art": "Vorlesungsfolien",
+        "umfang": "VL01–VL12, WiSe 2026/27"
+      },
+      {
+        "art": "Übungsblätter",
+        "umfang": "Blatt 1–6 mit Musterlösungen"
+      },
+      {
+        "art": "Altklausur",
+        "umfang": "WS 2023/24 (Aufgabenstil)"
+      },
+      {
+        "art": "Gedächtnisprotokoll",
+        "umfang": "SoSe 2024, inoffiziell"
+      }
+    ],
+    "materialien": {
+      "VL02": "Informationssysteme",
+      "VL05": "Datenmodellierung",
+      "VL09": "Wirtschaftlichkeit"
+    },
+    "mc_optionen": 4,
+    "mc_richtige": 1
+  },
+  "aufgaben": [
+    {
+      "id": "A1",
+      "titel": "Grundbegriffe",
+      "thema": "Informationssysteme",
+      "quelle": "VL02, Folie 8-19",
+      "punkte": 14,
+      "teilaufgaben": [
+        {
+          "nr": "a",
+          "punkte": 6,
+          "text": "Definieren Sie den Begriff <b>betriebliches Informationssystem</b> und grenzen Sie ihn von einem reinen IT-System ab.",
+          "antwortraum_zeilen": 7,
+          "quelle": "VL02, F11",
+          "loesung": "Ein betriebliches Informationssystem ist ==ein soziotechnisches System==[2], das ==Menschen, Aufgaben und Technik==[2] zur Erfassung, Verarbeitung, Speicherung und Bereitstellung von Informationen zusammenführt.\n\nDer Unterschied zum reinen IT-System: ==Das IT-System umfasst nur Hard- und Software==[2], die personelle und organisatorische Komponente fehlt.",
+          "bewertung": [
+            {
+              "kriterium": "Nennung soziotechnisches System",
+              "punkte": 2
+            },
+            {
+              "kriterium": "Mensch/Aufgabe/Technik als Komponenten",
+              "punkte": 2
+            },
+            {
+              "kriterium": "Abgrenzung zum reinen IT-System",
+              "punkte": 2
+            }
+          ],
+          "erlaeuterung": "Entscheidend ist der Begriff soziotechnisch: Die Vorlesung definiert das Informationssystem ausdrücklich über das Zusammenwirken von Mensch, Aufgabe und Technik. Wer nur Hard- und Software nennt, beschreibt das IT-System und erhält für Teil 1 keine Punkte."
+        },
+        {
+          "nr": "b",
+          "punkte": 8,
+          "text": "Ordnen Sie die folgenden Systeme der jeweils passenden Ebene der Systempyramide zu und begründen Sie eine Ihrer Zuordnungen.",
+          "antwortraum_zeilen": 8,
+          "quelle": "VL02, F16-19",
+          "tabelle": {
+            "header": [
+              "System",
+              "Ebene"
+            ],
+            "zeilen": [
+              [
+                "ERP-Buchungserfassung",
+                "[[operativ]]"
+              ],
+              [
+                "Management-Cockpit der Geschäftsführung",
+                "[[strategisch]]"
+              ],
+              [
+                "Absatzprognose der Vertriebsleitung",
+                "[[taktisch]]"
+              ],
+              [
+                "Kassensystem der Filiale",
+                "[[operativ]]"
+              ]
+            ]
+          },
+          "loesung": "Begründung am Beispiel Kassensystem: ==Es verarbeitet strukturierte Massendaten in Echtzeit ohne Entscheidungsunterstützung==[2] und gehört damit zur operativen Ebene.",
+          "bewertung": [
+            {
+              "kriterium": "Vier Zuordnungen korrekt (je 1,5 P.)",
+              "punkte": 6
+            },
+            {
+              "kriterium": "Tragfähige Begründung einer Zuordnung",
+              "punkte": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "titel": "Datenmodellierung",
+      "thema": "ERM",
+      "quelle": "VL05, Folie 4-22",
+      "punkte": 18,
+      "einleitung": "Ein Fahrradverleih vermietet Räder an registrierte Kundinnen und Kunden. Jede Vermietung betrifft genau ein Rad; ein Rad kann im Zeitverlauf mehrfach vermietet werden. Zu jeder Vermietung werden Start- und Rückgabestation erfasst.",
+      "teilaufgaben": [
+        {
+          "nr": "a",
+          "punkte": 10,
+          "text": "Erstellen Sie ein ER-Modell für den beschriebenen Sachverhalt. Kennzeichnen Sie Entitätstypen, Beziehungstypen und Kardinalitäten.",
+          "antwortraum": "kasten",
+          "antwortraum_hoehe_mm": 75,
+          "quelle": "VL05, F12-18",
+          "loesung": "- ==Entitätstypen: KUNDE, RAD, VERMIETUNG, STATION==[4]\n- ==Beziehungen: KUNDE tätigt VERMIETUNG; RAD wird vermietet in VERMIETUNG; VERMIETUNG hat Start- und Rückgabestation==[3]\n- ==Kardinalitäten: KUNDE (1) : (n) VERMIETUNG; RAD (1) : (n) VERMIETUNG; VERMIETUNG (n) : (1) STATION, zweifach==[3]",
+          "bewertung": [
+            {
+              "kriterium": "Vier Entitätstypen korrekt identifiziert",
+              "punkte": 4
+            },
+            {
+              "kriterium": "Beziehungstypen vollständig",
+              "punkte": 3
+            },
+            {
+              "kriterium": "Kardinalitäten korrekt",
+              "punkte": 3
+            }
+          ],
+          "erlaeuterung": "Die zweifache Beziehung zu STATION ist der Kern der Aufgabe: Start- und Rückgabestation sind zwei verschiedene Rollen derselben Entität und werden deshalb als zwei getrennte Beziehungen modelliert, nicht als eine."
+        },
+        {
+          "nr": "b",
+          "punkte": 8,
+          "text": "Überführen Sie Ihr Modell in ein relationales Schema. Geben Sie Primär- und Fremdschlüssel an.",
+          "antwortraum_zeilen": 10,
+          "quelle": "VL05, F20-22",
+          "loesung": "- ==Relationen: KUNDE(KundenNr, Name, Adresse); RAD(RadNr, Typ, Baujahr); STATION(StationsNr, Bezeichnung, Ort); VERMIETUNG(VermietungsNr, Beginn, Ende, …)==[3]\n- ==Primärschlüssel jeweils die Nummer==[2]\n- ==Fremdschlüssel KundenNr, RadNr sowie StartStationsNr und ZielStationsNr in VERMIETUNG==[3]",
+          "bewertung": [
+            {
+              "kriterium": "Vier Relationen korrekt gebildet",
+              "punkte": 3
+            },
+            {
+              "kriterium": "Primärschlüssel durchgängig gesetzt",
+              "punkte": 2
+            },
+            {
+              "kriterium": "Fremdschlüssel inkl. doppelter Stationsbezug",
+              "punkte": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "titel": "Wirtschaftlichkeitsrechnung",
+      "thema": "IT-Investition",
+      "quelle": "VL09, Folie 25-31",
+      "punkte": 14,
+      "teilaufgaben": [
+        {
+          "nr": "",
+          "punkte": 14,
+          "text": "Eine Software verursacht Anschaffungskosten von 120.000 EUR und jährliche Betriebskosten von 18.000 EUR bei einer Nutzungsdauer von vier Jahren. Die erwartete jährliche Einsparung beträgt 65.000 EUR. Berechnen Sie die statische Amortisationsdauer und beurteilen Sie die Investition. Nennen Sie zwei Schwächen des Verfahrens.",
+          "antwortraum": "kasten",
+          "antwortraum_hoehe_mm": 70,
+          "quelle": "VL09, F28-31",
+          "loesung": "Berechnung:\n- Nettorückfluss: 65.000 − 18.000 = ==47.000 EUR==[4]\n- Amortisationsdauer: 120.000 / 47.000 ≈ ==2,55 Jahre==[4]\n\nDie Investition ==amortisiert sich innerhalb der Nutzungsdauer von vier Jahren==[2] und ist damit vorteilhaft.\n\nSchwächen des Verfahrens:\n- ==Zeitwert des Geldes bleibt unberücksichtigt==[2]\n- ==Rückflüsse nach dem Amortisationszeitpunkt werden ignoriert==[2]",
+          "bewertung": [
+            {
+              "kriterium": "Nettorückfluss korrekt ermittelt",
+              "punkte": 4
+            },
+            {
+              "kriterium": "Amortisationsdauer korrekt berechnet",
+              "punkte": 4
+            },
+            {
+              "kriterium": "Beurteilung mit Bezug auf Nutzungsdauer",
+              "punkte": 2
+            },
+            {
+              "kriterium": "Zwei Schwächen des Verfahrens genannt",
+              "punkte": 4
+            }
+          ],
+          "erlaeuterung": "Rechenweg in zwei Schritten: erst den Nettorückfluss bilden, dann die Anschaffungsauszahlung dadurch teilen. Häufiger Fehler ist, die Betriebskosten nicht abzuziehen; das ergibt 1,8 Jahre."
+        }
+      ]
+    },
+    {
+      "id": "A4",
+      "titel": "Begriffe der Investitionsrechnung",
+      "thema": "IT-Investition",
+      "quelle": "VL09, F28-31",
+      "punkte": 6,
+      "teilaufgaben": [
+        {
+          "nr": "",
+          "punkte": 6,
+          "text": "Ergänzen Sie die Lücken im folgenden Text.",
+          "lueckentext": "Die statische Amortisationsrechnung ermittelt den Zeitpunkt, zu dem die [[Anschaffungsauszahlung]] durch die kumulierten [[Nettorückflüsse]] gedeckt ist. Sie berücksichtigt den [[Zeitwert des Geldes]] nicht und zählt deshalb zu den [[statischen]] Verfahren der Investitionsrechnung.",
+          "loesung": "",
+          "antwortraum": "keiner",
+          "quelle": "VL09, F28-31",
+          "bewertung": [
+            {
+              "kriterium": "Anschaffungsauszahlung",
+              "punkte": 1.5
+            },
+            {
+              "kriterium": "Nettorückflüsse",
+              "punkte": 1.5
+            },
+            {
+              "kriterium": "Zeitwert des Geldes",
+              "punkte": 1.5
+            },
+            {
+              "kriterium": "statischen",
+              "punkte": 1.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A5",
+      "titel": "Multiple Choice",
+      "thema": "Querschnitt",
+      "quelle": "VL02, VL05, VL09",
+      "punkte": 6,
+      "teilaufgaben": [
+        {
+          "nr": "a",
+          "punkte": 2,
+          "text": "Welcher Ebene der Systempyramide ist ein Management-Cockpit der Geschäftsführung zuzuordnen?",
+          "quelle": "VL02, F16-19",
+          "optionen": [
+            {
+              "text": "Der operativen Ebene, weil es laufende Geschäftsvorfälle erfasst.",
+              "richtig": false,
+              "warum_falsch": "Die Erfassung laufender Vorfälle ist Aufgabe operativer Systeme, nicht des Cockpits."
+            },
+            {
+              "text": "Der taktischen Ebene, weil es Absatzdaten für die Planung verdichtet.",
+              "richtig": false,
+              "warum_falsch": "Verdichtung für die Bereichsplanung beschreibt die taktische Ebene."
+            },
+            {
+              "text": "Der dispositiven Ebene, weil es Bestellvorschläge für den Einkauf erzeugt.",
+              "richtig": false,
+              "warum_falsch": "Bestellvorschläge entstehen in der Warenwirtschaft."
+            },
+            {
+              "text": "Der strategischen Ebene, weil es Kennzahlen für die Unternehmensleitung bündelt.",
+              "richtig": true
+            }
+          ],
+          "erklaerung": "Management-Cockpits verdichten Kennzahlen für langfristige Entscheidungen der Unternehmensleitung und gehören daher zur strategischen Ebene.",
+          "loesung": ""
+        },
+        {
+          "nr": "b",
+          "punkte": 2,
+          "text": "Wie wird eine n:m-Beziehung bei der Überführung in das Relationenmodell abgebildet?",
+          "quelle": "VL05, F20-22",
+          "optionen": [
+            {
+              "text": "Durch einen Fremdschlüssel in der Relation mit der kleineren Kardinalität.",
+              "richtig": false,
+              "warum_falsch": "Ein einzelner Fremdschlüssel genügt nur bei 1:n-Beziehungen."
+            },
+            {
+              "text": "Durch ein mehrwertiges Attribut in einer der beiden Relationen.",
+              "richtig": false,
+              "warum_falsch": "Mehrwertige Attribute verletzen die erste Normalform."
+            },
+            {
+              "text": "Durch eine eigene Relation mit den Primärschlüsseln beider Seiten.",
+              "richtig": true
+            },
+            {
+              "text": "Durch Zusammenlegen beider Entitätstypen in eine gemeinsame Relation.",
+              "richtig": false,
+              "warum_falsch": "Das Zusammenlegen führt zu Redundanz und Anomalien."
+            }
+          ],
+          "erklaerung": "Eine n:m-Beziehung wird als eigene Relation abgebildet, deren Schlüssel sich aus den Primärschlüsseln der beteiligten Relationen zusammensetzt.",
+          "loesung": ""
+        },
+        {
+          "nr": "c",
+          "punkte": 2,
+          "text": "Welche Größe steht bei der statischen Amortisationsrechnung im Nenner?",
+          "quelle": "VL09, F28",
+          "optionen": [
+            {
+              "text": "Die jährlichen Betriebskosten der Investition über die Laufzeit.",
+              "richtig": false,
+              "warum_falsch": "Betriebskosten mindern den Rückfluss, bilden aber nicht allein den Nenner."
+            },
+            {
+              "text": "Der jährliche Nettorückfluss aus Einsparung abzüglich Betriebskosten.",
+              "richtig": true
+            },
+            {
+              "text": "Die Anschaffungsauszahlung, verteilt auf die geplante Nutzungsdauer.",
+              "richtig": false,
+              "warum_falsch": "Die Anschaffungsauszahlung steht im Zähler."
+            },
+            {
+              "text": "Der kalkulatorische Zinssatz des eingesetzten Kapitals pro Jahr.",
+              "richtig": false,
+              "warum_falsch": "Zinsen berücksichtigt erst die dynamische Rechnung."
+            }
+          ],
+          "erklaerung": "Amortisationsdauer = Anschaffungsauszahlung / jährlicher Nettorückfluss; der Nettorückfluss ist Einsparung minus Betriebskosten.",
+          "loesung": ""
+        }
+      ]
+    }
+  ]
+}

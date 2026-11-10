@@ -1,0 +1,85 @@
+{
+ "name": "altklausur",
+ "quelle": "Altklausur_Beispiel.pdf",
+ "modul": "BSP",
+ "rand_mm": [
+  25,
+  29,
+  25,
+  22
+ ],
+ "schrift_text": "freeserif",
+ "schrift_titel": "freeserif",
+ "schrift_hilfe": "freeserif",
+ "groesse_text": 11.0,
+ "groesse_aufgabe": 13.0,
+ "groesse_titel": 20,
+ "tinte": "#000000",
+ "akzent": "#111111",
+ "grau": "#555555",
+ "flaeche": "#FFFFFF",
+ "groesse_kopf": 9.0,
+ "logo": "eigen",
+ "kopfzeile": {
+  "links": "Probeklausur {modul}",
+  "rechts": "{semester}"
+ },
+ "fusszeile": {
+  "links": "Seite {seite} von {seiten}",
+  "rechts": ""
+ },
+ "aufgabe_titel": "Aufgabe {nr}: {titel} ({punkte} Punkte)",
+ "aufgabe_titel_ohne": "Aufgabe {nr} ({punkte} Punkte)",
+ "aufgabe_punkte": "",
+ "aufgabe_linie": false,
+ "punktekasten": false,
+ "teilaufgabe_format": "{nr})",
+ "teilpunkte_format": "({punkte} P.)",
+ "neue_seite_je_aufgabe": true,
+ "antwortraum_stil": "platz",
+ "symbole": false,
+ "kopflinie": "kraeftig",
+ "teilpunkte_position": "inline",
+ "logo_mm": 14,
+ "deckblatt": {
+  "ausrichtung": "zentriert",
+  "titelzeilen": [
+   "{variante}",
+   "{modul}",
+   "{semester} – {pruefungsdatum}"
+  ],
+  "personalien": [
+   "Name",
+   "Vorname",
+   "Matrikelnummer",
+   "Studiengang"
+  ],
+  "personalien_stil": "zeile",
+  "punktetabelle": "horizontal",
+  "punktetabelle_titel": "",
+  "punktetabelle_zeilen": [
+   "Punkte",
+   "erreicht"
+  ],
+  "hinweise_stil": "nummeriert",
+  "hinweise_titel": "Hinweise",
+  "hinweise_ausrichtung": "zentriert",
+  "eckdaten": false,
+  "linie": false,
+  "institution": false,
+  "variante_zeile": false
+ },
+ "_befunde": [
+  "Fließtext: AAAAAA+FreeSerif 11.0 pt -> freeserif",
+  "Aufgabenüberschrift: Aufgabe {nr}: {titel} ({punkte} Punkte)",
+  "Teilaufgaben: {nr}), Punkte ({punkte} P.)",
+  "Punktekasten: nein",
+  "Neue Seite je Aufgabe: ja",
+  "Kopfzeile: Probeklausur {modul} | {semester}",
+  "Fußzeile: Seite {seite} von {seiten} | ",
+  "Modulname im Original: \"Beispielmodul\" -> {modul}",
+  "Deckblatt: ja, zentriert, Punktetabelle horizontal, Personalien: Name, Vorname, Matrikelnummer, Studiengang",
+  "Antwortraum: platz",
+  "Kopflinie: kraeftig, Kopfzeilenschrift: freeserif, Teilpunkte: im Text"
+ ]
+}

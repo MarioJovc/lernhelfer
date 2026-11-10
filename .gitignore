@@ -1,0 +1,37 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editoren und IDEs
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.vs/
+.fleet/
+.cursor/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Arbeitsordner der Skills und gebaute ZIP-Dateien
+arbeit/
+vorschau/
+dist/
+
+# Logs
+*.log
+
+# Geheimnisse und lokale Konfiguration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
